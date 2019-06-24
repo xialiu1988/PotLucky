@@ -27,17 +27,17 @@ in potluck planning collaboration.
 
 ## Notes
 Spring,
-Java-based
+Java-based, PSQL
 
 ## Versions:
 > Version 1.0.0  06/24/19
 
 ## Creators
-> **Roger Huba**  [gitHub](https://github.com/rogerhuba)
+> **Jen Shin**  [gitHub](https://github.com/jshin83)
 
 > **Luke Chandler**  [gitHub](https://github.com/lhchandler4)
 
-> **Jen Shin**  [gitHub](https://github.com/jshin83)
+> **Roger Huba**  [gitHub](https://github.com/rogerhuba)
 
 > **Xia Liu**  [gitHub](https://github.com/xialui1988)
 
