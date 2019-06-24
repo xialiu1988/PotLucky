@@ -48,7 +48,11 @@ public class PotLuckUserController {
     @GetMapping("/Potluck/add")
     public String createPotluck(){
         return "createPotluck";
+    }
 
+    @GetMapping("/aboutus")
+    public String aboutus(){
+        return "aboutus";
     }
 
     @PostMapping("/Potluck")

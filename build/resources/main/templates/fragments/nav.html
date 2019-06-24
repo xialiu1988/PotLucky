@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>common frags</title>
+</head>
+<body>
+<nav th:fragment="nav">
+
+    <a th:unless="${user}" href="/login">Log In</a>
+    <a th:if="${user}" href="/Potluck/add">Create New PotLuck</a>
+    <a th:if="${user}" href="/potato">Log Out</a>
+</nav>
+</body>
+</html>
