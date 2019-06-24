@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:if="${notcreator==false}">
+    <p>Do you want to to go</p>
+    <form th:action="'/Potlucks/'+${newPotluck.id}" method="post">
+        <input type='submit' name='action' value='yes' />
+        <input type='submit' name='action' value='no' />
+    </form>
+</div>
+
+<h1 th:text="${newPotluck.eventname}"></h1>
+Creator: <p th:text="${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
+Date: <p th:text="${newPotluck.dateofPotluck}"></p>
+Location: <p th:text="${newPotluck.location}"></p>
+Share Code:<p th:text="${newPotluck.code}"></p>
+
+Lists of Stuff for the events:
+
+Utensil?<input type="checkbox" name="isUtensil" />
+Napkin?<input type="checkbox" name="isNapkin" />
+Dessert?<input type="checkbox" name="isDessert" />
+Salad?<input type="checkbox" name="isSalad" />
+Pork?<input type="checkbox" name="isPork" />
+Beef?<input type="checkbox" name="isBeef" />
+Seafood?<input type="checkbox" name="isSeafood" />
+Soup?<input type="checkbox" name="isSoup" />
+Lique?<input type="checkbox" name="isLique" />
+Soda/water?<input type="checkbox" name="isSodaWater" />
+
+<div th:if="${newPotluck.attendees.size()>0}">
+    <h3>Here are the list of people planning to attend this event</h3>
+    <ul>
+        <li th:each="attendee : ${newPotluck.attendees}">
+
+            <p th:text="${attendee.firstname}+' '+${attendee.lastname}"></p>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
