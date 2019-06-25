@@ -112,6 +112,32 @@ public class PotluckPlannerApplicationTests {
 		// Test Getters
 	}
 
+	@Test
+	public void testFullPath() throws Exception {
+		// home page
+		// /signup
+			// username
+			// firstname
+		// profile
+			// no potluck
+		// add potluck
+			// date
+			// code
+		// test code
+
+		// new user add
+		// show user on creator page
+		// add item
+	}
+
+	@Test
+	public void testDatabase() throws Exception{
+		// Test database exists
+		// test tables exist
+		// test user data
+		// test potluck data
+
+	}
 
 
 }
