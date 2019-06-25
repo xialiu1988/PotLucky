@@ -76,12 +76,13 @@ public class PotluckUserController {
     }
 
     @PostMapping("/Potluck")
-    public String newPotluck(Principal p, String eventname, Date dateofPotluck, String location, Model m){
+    public String newPotluck(Principal p, String eventname, Date dateofPotluck, String location, String details, Model m){
         PotluckUser creator = potLuckUserRepository.findByUsername(p.getName());
         Potluck newP=new Potluck();
         newP.eventname=eventname;
         newP.dateofPotluck=dateofPotluck;
         newP.location=location;
+        newP.details=details;
         newP.creator=creator;
 //        newP.stuff=new ArrayList<>();
 
