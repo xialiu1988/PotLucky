@@ -61,6 +61,17 @@ public class PotluckPlannerApplicationTests {
 	}
 
 	@Test
+	public void testLogoutRoutePass() throws Exception {
+		this.mockMvc.perform(get("/logout")).andExpect(status().is3xxRedirection());
+	}
+
+	@Test
+	public void testLogoutRouteRedirectPass() throws Exception {
+		// Need to add testing here
+		// this.mockMvc.perform(get("/logout")).andExpect(status().isOk());
+	}
+
+	@Test
 	public void testPotluckNotSignedInRoutePass() throws Exception {
 		this.mockMvc.perform(get("/Potluck")).andExpect(status().is3xxRedirection());
 	}
@@ -139,5 +150,24 @@ public class PotluckPlannerApplicationTests {
 
 	}
 
+	@Test
+	public void testLoginInvalidUsernamePassword() throws Exception{
+		// Test login with invalid username
+		// test login with invalid password
+	}
 
+	@Test
+	public void testAddInvalidPotluckCode() throws Exception{
+		// Test try to add invalid potluck code
+	}
+
+	@Test
+	public void testAddUserAlreadyExists() throws Exception{
+		// Test adding a user that already exists
+	}
+
+	@Test
+	public void testAddUserNoPassword() throws Exception{
+
+	}
 }
