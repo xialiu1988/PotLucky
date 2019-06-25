@@ -39,6 +39,7 @@ public class PotluckController {
 
 
         model.addAttribute("newPotluck",potluck);
+        model.addAttribute("principal", P);
         return "potLuckDetail";
     }
 
@@ -58,7 +59,7 @@ public class PotluckController {
         }
 
         m.addAttribute("user", currentUser);
-
+        m.addAttribute("principal", p);
         return new RedirectView("/");
     }
 
@@ -72,6 +73,7 @@ public class PotluckController {
             m.addAttribute("notcreator",false);
         }
         m.addAttribute("newPotluck",pp);
+        m.addAttribute("principal", p);
         return "potLuckDetail";
     }
 
