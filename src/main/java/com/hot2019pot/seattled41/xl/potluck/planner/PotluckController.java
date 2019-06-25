@@ -24,6 +24,7 @@ public class PotluckController {
     @GetMapping("/Potlucks/{id}")
     public String getDetails(@PathVariable Long id, Principal P, Model model){
 
+        model.addAttribute("curruser",potLuckUserRepository.findByUsername(P.getName()));
         potluck=potLuckRepository.findById(id).get();
         model.addAttribute("newPotluck",potluck);
         return "potLuckDetail";

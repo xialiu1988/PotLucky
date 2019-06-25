@@ -21,21 +21,21 @@ Date: <p th:text="${newPotluck.dateofPotluck}"></p>
 Location: <p th:text="${newPotluck.location}"></p>
 Share Code:<p th:text="${newPotluck.code}"></p>
 
-List of Items for the event:
-<form th:action="@{/addItem}" method="POST">
+
+<p>List of Items for the event:</p>
+<span th:if="${newPotluck.potluckItemList.size() == 0 }">This list is empty.</span>
+<ul th:if="${newPotluck.potluckItemList.size() > 0 }">
+    <li th:each="item :${newPotluck.potluckItemList}">
+        <span th:text="${item.item + ', quantity: ' + item.quantity}"></span>
+    </li>
+
+</ul>
+
+
+
+<form th:if=${newPotluck.attendees.contains(curruser)} th:action="@{/addItem}" method="POST">
     Item: <input type="text" name="itemName" /> Quantity: <input type="number" name="quantity" min="1"/>
     <input type="submit" value="add" />
-
-    <!--Utensil?<input type="checkbox" name="isUtensil" /> Quantity <input type="number" name="utensilQuantity" min="0"/>-->
-    <!--Napkin?<input type="checkbox" name="isNapkin" /> Quantity <input type="number" name="napkinQuantity" min="0"/>-->
-    <!--Dessert?<input type="checkbox" name="isDessert" /> Quantity <input type="number" name="dessertQuantity" min="0"/>-->
-    <!--Salad?<input type="checkbox" name="isSalad" /> Quantity<input type="number" name="saladQuantity" min="0"/>-->
-    <!--Pork?<input type="checkbox" name="isPork" /> Quantity<input type="number" name="porkQuantity" min="0"/>-->
-    <!--Beef?<input type="checkbox" name="isBeef" /> Quantity<input type="number" name="beefQuantity" min="0"/>-->
-    <!--Seafood?<input type="checkbox" name="isSeafood" /> Quantity<input type="number" name="soupQuantity" min="0"/>-->
-    <!--Soup?<input type="checkbox" name="isSoup" /> Quantity<input type="number" name="soupQuantity" min="0"/>-->
-    <!--Liquid?<input type="checkbox" name="isLiquid" /> Quantity<input type="number" name="liquidQuantity" min="0"/>-->
-    <!--Soda/water?<input type="checkbox" name="isSodaWater" /> Quantity<input type="number" min="0"/>-->
 </form>
 
 
