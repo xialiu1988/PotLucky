@@ -1,0 +1,16 @@
+.foot {
+ color: lightgray;
+ text-align: center;
+ background-color: blue;
+}
+
+#signupform {
+  display: block;
+  text-align: center;
+  margin-top: 45px;
+}
+
+button a {
+color: white;
+}
+
