@@ -24,8 +24,20 @@ public class PotluckController {
     @GetMapping("/Potlucks/{id}")
     public String getDetails(@PathVariable Long id, Principal P, Model model){
 
-        model.addAttribute("curruser",potLuckUserRepository.findByUsername(P.getName()));
         potluck=potLuckRepository.findById(id).get();
+        currentUser=potLuckUserRepository.findByUsername(P.getName());
+        //check if the potluck belongs to the current user or the potluck's attendees contains the current user
+      if(potluck.creator.equals(currentUser)){
+          model.addAttribute("curruser",true);
+      }
+
+      else if(potluck.attendees.contains(currentUser))
+
+      {
+          model.addAttribute("curruser",false);
+      }
+
+
         model.addAttribute("newPotluck",potluck);
         return "potLuckDetail";
     }
