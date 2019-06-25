@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.sql.Date;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,6 +23,22 @@ public class PotluckPlannerApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	// Helper Methods
+	public PotluckUser createTestUser(){
+		PotluckUser testUser = new PotluckUser("Test", "User", "testuser", "testuser");
+		assertEquals("User First Name should be Test", "Test", testUser.firstname);
+		assertEquals("User Last Name should be User", "User", testUser.lastname);
+		assertEquals("User name should be testuser", "testuser", testUser.username);
+		return testUser;
+	}
+
+	public Potluck createTestPotluck(PotluckUser testUser){
+		Date newDate = new Date(01-01-2020);
+		Potluck testPotluck = new Potluck("TestEvent", newDate, "TestLocation",
+				"TestDetails", testUser, "TestCode");
+		return testPotluck;
+	}
+
 	// Route Testing
 	@Test
 	public void testHomeNotSignedInRoutePass() throws Exception {
@@ -29,6 +47,7 @@ public class PotluckPlannerApplicationTests {
 
 	@Test
 	public void testHomeSignedInRoutePass() throws Exception {
+		PotluckUser testUser = createTestUser();
 		this.mockMvc.perform(get("/")).andExpect(status().isOk());
 	}
 
@@ -47,6 +66,11 @@ public class PotluckPlannerApplicationTests {
 	public void testSearchSignedInRoutePass() throws Exception {
 		// Need to add test for this
 		// this.mockMvc.perform(get("/search")).andExpect(status().is3xxRedirection());
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
+		Date testDate = new Date(01-01-2020);
+
+
 	}
 
 	@Test
@@ -80,6 +104,8 @@ public class PotluckPlannerApplicationTests {
 	public void testPotluckSignedInRoutePass() throws Exception {
 		// Need to add testing for this.
 		// this.mockMvc.perform(get("/Potluck")).andExpect(status().is3xxRedirection());
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
 	}
 
 	@Test
@@ -91,6 +117,8 @@ public class PotluckPlannerApplicationTests {
 	public void testAddPotluckSignedInRoutePass() throws Exception {
 		// Need to add tests
 		// this.mockMvc.perform(get("/addItem")).andExpect(status().is3xxRedirection());
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
 	}
 
 	@Test
@@ -103,6 +131,8 @@ public class PotluckPlannerApplicationTests {
 		// signing user
 		// create event
 		// this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
 	}
 
 	@Test
@@ -115,6 +145,8 @@ public class PotluckPlannerApplicationTests {
 		// signing user
 		// create event
 		// this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
+		PotluckUser testUser = createTestUser();
+
 	}
 
 	@Test
@@ -125,6 +157,8 @@ public class PotluckPlannerApplicationTests {
 
 	@Test
 	public void testFullPath() throws Exception {
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
 		// home page
 		// /signup
 			// username
@@ -147,7 +181,6 @@ public class PotluckPlannerApplicationTests {
 		// test tables exist
 		// test user data
 		// test potluck data
-
 	}
 
 	@Test
@@ -169,5 +202,33 @@ public class PotluckPlannerApplicationTests {
 	@Test
 	public void testAddUserNoPassword() throws Exception{
 
+	}
+
+	@Test
+	public void testCreateUser(){
+		PotluckUser testUser = new PotluckUser();
+		assertNotNull(testUser);
+	}
+
+	@Test
+	public void testCreateActualuser(){
+		PotluckUser testUser = createTestUser();
+		assertEquals("User First Name should be Test", "Test", testUser.firstname);
+		assertEquals("User Last Name should be User", "User", testUser.lastname);
+		assertEquals("User name should be testuser", "testuser", testUser.username);
+	}
+
+	@Test
+	public void testCreatePotluck(){
+		Potluck testPotluck = new Potluck();
+		assertNotNull(testPotluck);
+	}
+
+	@Test
+	public void testCreateAcutalPotluck(){
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
+		Date testDate = new Date(01-01-2020);
+		assertEquals("Date will be 2020-01-01", testDate, testPotluck.dateofPotluck);
 	}
 }
