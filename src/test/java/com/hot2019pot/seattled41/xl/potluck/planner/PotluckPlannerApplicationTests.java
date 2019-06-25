@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -20,10 +21,7 @@ public class PotluckPlannerApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Test
-	public void contextLoads() {
-	}
-
+	// Route Testing
 	@Test
 	public void testHomeNotSignedInRoutePass() throws Exception {
 		this.mockMvc.perform(get("/")).andExpect(status().isOk());
@@ -41,6 +39,7 @@ public class PotluckPlannerApplicationTests {
 
 	@Test
 	public void testSearchNotSignedInRoutePass() throws Exception {
+		// Expect redirect to login page.
 		this.mockMvc.perform(get("/search")).andExpect(status().is3xxRedirection());
 	}
 
@@ -80,17 +79,39 @@ public class PotluckPlannerApplicationTests {
 	@Test
 	public void testAddPotluckSignedInRoutePass() throws Exception {
 		// Need to add tests
-		// this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
+		// this.mockMvc.perform(get("/addItem")).andExpect(status().is3xxRedirection());
 	}
 
 	@Test
 	public void testPotluckDetailNotSignedInRoutePass() throws Exception {
+		this.mockMvc.perform(get("/addItem")).andExpect(status().is3xxRedirection());
+	}
+
+	@Test
+	public void testAddPotluckAddItemSignedInRoutePass() throws Exception {
+		// signing user
+		// create event
+		// this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
+	}
+
+	@Test
+	public void testPotluckAddItemNotSignedInRoutePass() throws Exception {
 		this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
 	}
 
 	@Test
 	public void testPotluckDetailSignedInRoutePass() throws Exception {
-		// Need to add test
+		// signing user
+		// create event
 		// this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
 	}
+
+	@Test
+	public void testPotLuckConstructorPass() throws Exception {
+		// Need To Add Test
+		// Test Getters
+	}
+
+
+
 }
