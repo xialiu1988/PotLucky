@@ -5,7 +5,10 @@
     <title>Create new Potluck</title>
 </head>
 <body>
+<div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
+
   <h1>Create new PotLuck</h1>
+
 <form  action="/Potluck"   method="post">
 
         Potluck Name: <input type="text" name="eventname" />

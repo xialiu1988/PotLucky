@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,6 +8,14 @@
 <body>
 <div  id="main">
     <section className='About Us'>
+
+        <div th:if="${principal == null}">
+            <div th:replace="fragments/header :: header"></div>
+        </div>
+        <div th:if="${principal != null}">
+            <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
+        </div>
+
         <h1>About Us</h1>
 
         <div>

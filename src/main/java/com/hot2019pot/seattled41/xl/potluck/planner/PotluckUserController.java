@@ -45,7 +45,8 @@ public class PotluckUserController {
 
 
     @GetMapping("/Potluck/add")
-    public String createPotluck(){
+    public String createPotluck(Model m, Principal p){
+        m.addAttribute("principal", p);
         return "createPotluck";
     }
 
@@ -65,7 +66,12 @@ public class PotluckUserController {
     }
 
     @GetMapping("/aboutus")
-    public String getAboutUs() {
+    public String getAboutUs(Model m, Principal p) {
+        if (p ==null) {
+            m.addAttribute("principal", null);
+        }else {
+            m.addAttribute("principal", p);
+        }
         return "aboutus.html";
     }
 

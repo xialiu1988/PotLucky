@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
 
 <div th:if="${notcreator==false}">
     <p>Do you want to to go</p>
