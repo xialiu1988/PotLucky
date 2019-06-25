@@ -29,7 +29,7 @@ public class Potluck {
     @ManyToMany
     Set<PotluckUser> attendees;
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="potluck")
     List<PotluckItem> potluckItemList;
 
     public Potluck() {

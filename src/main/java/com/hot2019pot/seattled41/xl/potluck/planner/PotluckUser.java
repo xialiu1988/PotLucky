@@ -21,10 +21,10 @@ public class PotluckUser implements UserDetails {
     String password;
 
     @ManyToMany
-    List<Potluck> attendingPotlucks;
+    Set<Potluck> attendingPotlucks;
 
     @OneToMany(mappedBy="creator")
-    List<Potluck> createPotlucks;
+    Set<Potluck> createPotlucks;
 
     @OneToMany
     Set<PotluckItem> potluckItems;
@@ -84,11 +84,11 @@ public class PotluckUser implements UserDetails {
         return password;
     }
 
-    public List<Potluck> getAttendingPotlucks() {
+    public Set<Potluck> getAttendingPotlucks() {
         return attendingPotlucks;
     }
 
-    public List<Potluck> getCreatePotlucks() {
+    public Set<Potluck> getCreatePotlucks() {
         return createPotlucks;
     }
 
@@ -108,11 +108,11 @@ public class PotluckUser implements UserDetails {
         this.password = password;
     }
 
-    public void setAttendingPotlucks(List<Potluck> attendingPotlucks) {
+    public void setAttendingPotlucks(Set<Potluck> attendingPotlucks) {
         this.attendingPotlucks = attendingPotlucks;
     }
 
-    public void setCreatePotlucks(List<Potluck> createPotlucks) {
+    public void setCreatePotlucks(Set<Potluck> createPotlucks) {
         this.createPotlucks = createPotlucks;
     }
 }
