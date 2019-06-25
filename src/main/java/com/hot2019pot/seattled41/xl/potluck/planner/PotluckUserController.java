@@ -47,7 +47,16 @@ public class PotluckUserController {
     @GetMapping("/Potluck/add")
     public String createPotluck(){
         return "createPotluck";
+    }
 
+    @GetMapping("/home")
+    public String goHomePage(){
+        return "home";
+    }
+
+    @GetMapping("/logout_completed")
+    public String getLogoutPage() {
+        return "logout_completed.html";
     }
 
     @PostMapping("/Potluck")

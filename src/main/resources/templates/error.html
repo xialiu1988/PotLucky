@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link href="/styles.css" rel="stylesheet" />
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+<h3>An Error has occurred.</h3>
+<img src="/" alt="Error" width="500px">
+<table id="errorMsg">
+    <tr>
+        <td>Path:</td>
+        <td th:text="${path}"/>
+    </tr>
+    <tr>
+        <td>Error:</td>
+        <td th:text="${error}"/>
+    </tr>
+    <tr>
+        <td>Status:</td>
+        <td th:text="${status}"/>
+    </tr>
+    <tr>
+        <td>Message:</td>
+        <td th:text="${message}"/>
+    </tr>
+</table>
+
+</body>
+</html>
