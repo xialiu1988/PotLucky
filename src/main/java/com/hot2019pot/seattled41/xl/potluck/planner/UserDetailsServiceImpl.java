@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-   PotLuckUserRepository potLuckUserRepository;
+    PotluckUserRepository potLuckUserRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return potLuckUserRepository.findByUsername(username);
