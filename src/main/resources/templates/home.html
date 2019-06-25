@@ -5,6 +5,14 @@
     <title>Home</title>
 </head>
 <body>
+
+<div th:if="${principal == null}">
+    <div th:replace="fragments/header :: header"></div>
+</div>
+<div th:if="${principal != null}">
+    <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
+</div>
+
 <h1>Are you feeling Potlucky? Well are you?</h1>
 <p>We are the one stop shop for organizing your Potluck dinner. Create an invent. Invite friends and acquaintances with your exclusive
     code. We take the hassle out of coordinating. No stress just enjoy your time!</p>

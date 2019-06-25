@@ -1,0 +1,10 @@
+<header class="header" th:fragment="header(principal)" xmlns:th="http://www.springframework.org/schema/security">
+    <h1>Potlucky!</h1>
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/Potluck/add">Create a Potluck</a>
+        <a href="/">My Page</a>
+        <a href="/logout_completed">Log out</a>
+        [[${principal.getName()}]]
+    </nav>
+</header>
