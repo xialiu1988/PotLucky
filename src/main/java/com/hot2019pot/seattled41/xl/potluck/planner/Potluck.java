@@ -4,7 +4,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ public class Potluck {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String eventname;
-
+    String details;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     Date dateofPotluck;
 
@@ -22,9 +21,7 @@ public class Potluck {
     //who create the potluck
     @ManyToOne
     PotluckUser creator;
-//    @Column
-//    @ElementCollection(targetClass=String.class)
-//    List<String> stuff;
+
     String code;
     @ManyToMany
     Set<PotluckUser> attendees;
@@ -35,20 +32,17 @@ public class Potluck {
     public Potluck() {
     }
 
-    public Potluck(String eventname, Date dateofPotluck, String location, PotluckUser creator, String code) {
+    public Potluck(String eventname, Date dateofPotluck, String location, String details, PotluckUser creator, String code) {
         this.eventname = eventname;
         this.dateofPotluck = dateofPotluck;
         this.location = location;
+        this.details = details;
         this.creator=creator;
         this.code=code;
-//        this.potluckItemList=new ArrayList<>();
     }
     public String getCode(){return code;}
+
     public void setCode(String code){this.code=code;}
-
-//    public List<String> getStuff(){return stuff;}
-//    public void setStuff(List<String> stuff){this.stuff=stuff;}
-
 
     public void setId(long id) {
         this.id = id;
@@ -104,5 +98,13 @@ public class Potluck {
 
     public void setAttendees(Set<PotluckUser> attendees) {
         this.attendees = attendees;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 }

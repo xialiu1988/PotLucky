@@ -13,7 +13,6 @@ public class PotluckItem {
     @OneToOne
     PotluckUser user;
     @ManyToOne
-//    @JoinColumn(name="potluck_id")
     Potluck potluck;
 
     public PotluckItem() {}
