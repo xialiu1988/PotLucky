@@ -20,7 +20,8 @@
 Creator: <p th:text="${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
 Date: <p th:text="${newPotluck.dateofPotluck}"></p>
 Location: <p th:text="${newPotluck.location}"></p>
-Share Code:<p th:text="${newPotluck.code}"></p>
+Additional Details: <p th:text="${newPotluck.details}"></p>
+Share Code:<p th:if="${curruser==true}" th:text="${newPotluck.code}"></p>
 
 
 <p>List of Items for the event:</p>
@@ -34,7 +35,7 @@ Share Code:<p th:text="${newPotluck.code}"></p>
 
 
 
-<form th:if=${newPotluck.attendees.contains(curruser)} th:action="@{/addItem}" method="POST">
+<form th:if="${curruser!=null}" th:action="@{/addItem}" method="POST">
     Item: <input type="text" name="itemName" /> Quantity: <input type="number" name="quantity" min="1"/>
     <input type="submit" value="add" />
 </form>
