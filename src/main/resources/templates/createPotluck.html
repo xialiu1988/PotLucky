@@ -2,14 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create new Potluck</title>
+    <title>Create a new Potluck</title>
 </head>
 <body>
-  <h1>Create new PotLuck</h1>
+<div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
+
+  <h1>Create a New PotLuck Event!</h1>
+
 <form  action="/Potluck"   method="post">
 
         Potluck Name: <input type="text" name="eventname" />
-        Date of Potluck: <input type="date" name="dateofPotluck" />
+        Date of the Potluck: <input type="date" name="dateofPotluck" />
         Location: <input type="text" name="location" />
         Additional Details: <textarea rows="5" cols="70" name="details"></textarea>
 

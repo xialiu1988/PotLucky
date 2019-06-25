@@ -5,7 +5,7 @@
     <title>Sign Up</title>
 </head>
 <body>
-<div th:replace="${principal != null} ? ~{fragments/loggedInHeader :: header(principal=${principal})} : ~{fragments/header:: header}"></div>
+<div th:replace="fragments/header :: header"></div>
 <h1>Sign Up Here !</h1>
 <a href="/">Home</a>
 
