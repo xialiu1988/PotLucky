@@ -8,9 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.sql.Date;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,9 +24,6 @@ public class PotluckPlannerApplicationTests {
 	// Helper Methods
 	public PotluckUser createTestUser(){
 		PotluckUser testUser = new PotluckUser("Test", "User", "testuser", "testuser");
-		assertEquals("User First Name should be Test", "Test", testUser.firstname);
-		assertEquals("User Last Name should be User", "User", testUser.lastname);
-		assertEquals("User name should be testuser", "testuser", testUser.username);
 		return testUser;
 	}
 
@@ -39,16 +34,32 @@ public class PotluckPlannerApplicationTests {
 		return testPotluck;
 	}
 
+	public PotluckItem createTestPotLuckItem(PotluckUser testUser,Potluck testPotluck){
+		PotluckItem testPotluckItem = new PotluckItem("testItem", 5, testPotluck, testUser);
+		return testPotluckItem;
+	}
+
 	// Route Testing
 	@Test
-	public void testHomeNotSignedInRoutePass() throws Exception {
+	public void testSlashNotSignedInRoutePass() throws Exception {
 		this.mockMvc.perform(get("/")).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testSlashSignedInRoutePass() throws Exception {
+		PotluckUser testUser = createTestUser();
+		this.mockMvc.perform(get("/")).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testHomeNotSignedInRoutePass() throws Exception {
+		this.mockMvc.perform(get("/home")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void testHomeSignedInRoutePass() throws Exception {
 		PotluckUser testUser = createTestUser();
-		this.mockMvc.perform(get("/")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/home")).andExpect(status().isOk());
 	}
 
 	@Test
@@ -69,8 +80,6 @@ public class PotluckPlannerApplicationTests {
 		PotluckUser testUser = createTestUser();
 		Potluck testPotluck = createTestPotluck(testUser);
 		Date testDate = new Date(01-01-2020);
-
-
 	}
 
 	@Test
@@ -156,26 +165,6 @@ public class PotluckPlannerApplicationTests {
 	}
 
 	@Test
-	public void testFullPath() throws Exception {
-		PotluckUser testUser = createTestUser();
-		Potluck testPotluck = createTestPotluck(testUser);
-		// home page
-		// /signup
-			// username
-			// firstname
-		// profile
-			// no potluck
-		// add potluck
-			// date
-			// code
-		// test code
-
-		// new user add
-		// show user on creator page
-		// add item
-	}
-
-	@Test
 	public void testDatabase() throws Exception{
 		// Test database exists
 		// test tables exist
@@ -230,5 +219,43 @@ public class PotluckPlannerApplicationTests {
 		Potluck testPotluck = createTestPotluck(testUser);
 		Date testDate = new Date(01-01-2020);
 		assertEquals("Date will be 2020-01-01", testDate, testPotluck.dateofPotluck);
+		assertEquals("Code should be abc12", "TestCode", testPotluck.code);
+	}
+
+	@Test
+	public void testCreatePotluckItem(){
+		PotluckItem testItem = new PotluckItem();
+		assertNotNull(testItem);
+	}
+
+	@Test
+	public void testCreateActualPotluckItem(){
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
+		PotluckItem testPotluckItem = createTestPotLuckItem(testUser, testPotluck);
+		assertEquals("Item should be TestItem", "testItem", testPotluckItem.item);
+	}
+
+	@Test
+	public void testFullPath() throws Exception {
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
+		PotluckItem testPotluckItem = createTestPotLuckItem(testUser, testPotluck);
+//		this.mockMvc.perform(get("/")).andExpect(status().isOk());
+
+		// home page
+		// /signup
+		// username
+		// firstname
+		// profile
+		// no potluck
+		// add potluck
+		// date
+		// code
+		// test code
+
+		// new user add
+		// show user on creator page
+		// add item
 	}
 }
