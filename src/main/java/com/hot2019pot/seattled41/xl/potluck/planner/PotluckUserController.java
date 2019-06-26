@@ -45,18 +45,34 @@ public class PotluckUserController {
 
 
     @GetMapping("/Potluck/add")
-    public String createPotluck(){
+    public String createPotluck(Model m, Principal p){
+        m.addAttribute("principal", p);
         return "createPotluck";
     }
 
     @GetMapping("/home")
-    public String goHomePage(){
-        return "home";
+    public String goHomePage(Model m, Principal p){
+        if (p ==null) {
+            m.addAttribute("principal", null);
+        }else {
+            m.addAttribute("principal", p);
+        }
+        return "home.html";
     }
 
     @GetMapping("/logout_completed")
     public String getLogoutPage() {
         return "logout_completed.html";
+    }
+
+    @GetMapping("/aboutus")
+    public String getAboutUs(Model m, Principal p) {
+        if (p ==null) {
+            m.addAttribute("principal", null);
+        }else {
+            m.addAttribute("principal", p);
+        }
+        return "aboutus.html";
     }
 
     @PostMapping("/Potluck")

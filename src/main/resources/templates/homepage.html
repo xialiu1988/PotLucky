@@ -5,8 +5,15 @@
     <title>Home</title>
 </head>
 <body>
-<h1>Welcome</h1>
-<nav th:replace="fragments/nav :: nav"></nav>
+
+<div th:if="${principal == null}">
+    <div th:replace="fragments/header :: header"></div>
+</div>
+<div th:if="${principal != null}">
+    <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
+</div>
+
+
 <h2 th:if="${user}">Welcome, [[${user.firstname}]]</h2>
 
 <form th:if="${user}" action="/search" method="get">
@@ -40,6 +47,6 @@
 </div>
 
 </div>
-
+<div th:replace="fragments/footer :: foot"></div>
 </body>
 </html>

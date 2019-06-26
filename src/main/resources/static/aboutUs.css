@@ -1,5 +1,5 @@
 div {
-  width: 70%;
+  width: 75%;
   margin: 50px auto;
 }
 
@@ -7,13 +7,13 @@ section img {
   float: left;
   margin-right: 30px;
   width: 200px;
-  max-height: 200px;
+  height: 200px;
+  border-radius: 20%;
 }
 
 section h2 {
   font-size: 20px;
   margin: 10px 0px;
-  font-family: "ember-bold", Helvetica, Arial, sans-serif;
   color: #16191f;
 }
 
@@ -24,13 +24,12 @@ section p {
   overflow: scroll;
   margin-bottom: 10px;
   color: #16191f;
-  font-family: "ember-reg", Helvetica, Arial, sans-serif;
 }
 
 button {
   text-align: right;
-  background: rgba(209, 50, 18, 0.9);
-  color: #fff;
+  background: blue;
+  color: white;
   border-radius: 2px;
   border: none;
   font-size: 15px;
@@ -38,15 +37,10 @@ button {
   cursor: pointer;
   transition: hover 350ms;
   margin-right: 20px;
+  clear: both;
 }
 
 button:hover {
   background: rgba(209, 50, 18, 1.0);
   transition: all 350ms;
-}
-
-button a {
-  text-decoration: none;
-  color: #fff;
-  font-family: "ember-bold", Helvetica, Arial, sans-serif;
 }

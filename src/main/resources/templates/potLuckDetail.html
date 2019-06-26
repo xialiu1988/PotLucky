@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
 
 <div th:if="${notcreator==false}">
     <p>Do you want to to go</p>
@@ -53,11 +54,15 @@ Share Code:<p th:if="${curruser==true}" th:text="${newPotluck.code}"></p>
         </li>
     </ul>
 </div>
+<<<<<<< HEAD
 
 <form th:if="${curruser==true}" th:action="'/delete/'+${newPotluck.id}" method="POST">
     <button type="submit">Delete</button>
 </form>
 
 
+=======
+<div th:replace="fragments/footer :: foot"></div>
+>>>>>>> dd233aeb556d4eb09f0ff718477ad5d112873c5c
 </body>
 </html>

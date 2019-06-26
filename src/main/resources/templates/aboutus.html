@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link href="/aboutUs.css" rel="stylesheet" />
+    <link href="/generalCss.css" rel="stylesheet" />
 </head>
 <body>
 <div  id="main">
     <section className='About Us'>
+
+        <div th:if="${principal == null}">
+            <div th:replace="fragments/header :: header"></div>
+        </div>
+        <div th:if="${principal != null}">
+            <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
+        </div>
+
         <h1>About Us</h1>
 
         <div>
             <section>
-                <img src="/Luke.jpg" alt="LukeImage" title="Luke image" className='members'/>
+                <img src="/Luke.jpeg" alt="LukeImage" title="Luke image" className='members'/>
                 <h2>Luke Chandler</h2>
                 <p>I am an aspiring software development engineer at Amazon Web Services. My background is in Biochemistry and
                     Military Intelligence as well as International Cooperation and Global Marketing Strategy. I decided to change career paths after seeing the degree to which technology permeates everything. It is also an industry that is constantly mentally challenging. In my spare time, I enjoy playing golf and climbing mountains. </p>
@@ -23,7 +33,7 @@
 
         <div>
             <section>
-                <img src="Roger.jpg" alt="RogerImage" title="Roger image"/>
+                <img src="Roger.jpeg" alt="RogerImage" title="Roger image"/>
                 <h2>Roger Huba</h2>
                 <p>My name is Roger Huba. I am a software developer and a US Navy Veteran. I have a Masters in Project Management and in Information Systems Management. I have been in the IT industry 10 years on the hardware and software support site. My first program ever written (ok, copied) was in 1982 on a Vic-20 computer.  Hook, line and sinker.
                     Life happen, and I ended up spending almost 15 years in the military before starting my IT career.
@@ -35,7 +45,7 @@
 
         <div>
             <section>
-                <img src= alt="XiaImage" title="Robert image"/>
+                <img src="/Xia.jpeg" alt="XiaImage" title="Xia image"/>
                 <h2>Xia Lui</h2>
                 <p> My name is Xia Liu and you can also call me Danielle. I'm originally from mainland China. I came to US in 2011 and currently live in WA state. After I graduated from the University of Florida in 2013, I enlisted in the US ARMY and stayed at Joint Base Lewis McChord in WA for about 2 years.
                     I worked at SeaTac airport as a bilingual ambassdor for Customs Border and Protection Officers..</p>
@@ -46,7 +56,7 @@
 
         <div>
             <section>
-                <img src= alt="JenImage" title="Jen image"/>
+                <img src="/Jen.jpeg" alt="JenImage" title="Jen image"/>
                 <h2>Jen Shin</h2>
                 <p>I am a curious, problem-solver whose diverse background in broadcasting and teaching exposed me to a broad range of different personalities. Living abroad helped me develop interesting perspectives when I am presented with puzzles. I adapt well and have a love of learning; I believe every moment is a teachable one, and am continuously striving to understand more about the world.
                     I studied software development and love how I am constantly challenged to grow.
@@ -58,6 +68,6 @@
         </div>
     </section>
 </div>
-
+<div th:replace="fragments/footer :: foot"></div>
 </body>
 </html>

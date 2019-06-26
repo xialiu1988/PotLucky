@@ -23,7 +23,7 @@ public class HomepageController {
             if(potLuckUserRepository.findByUsername(p.getName()).attendingPotlucks.size()>0){
                 m.addAttribute("attendingpotlucks",potLuckUserRepository.findByUsername(p.getName()).attendingPotlucks);
             }
-
+            m.addAttribute("principal", p);
             m.addAttribute("user",potLuckUserRepository.findByUsername(p.getName()));
         }
       return "homepage";
