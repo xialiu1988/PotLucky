@@ -20,14 +20,14 @@ public class Potluck {
     String details;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     Date dateofPotluck;
-
     String location;
     //who create the potluck
     @ManyToOne
     PotluckUser creator;
 
     String code;
-
+    //get lat and lng from api and store int the array
+    String[] mapResult;
     @ManyToMany
     Set<PotluckUser> attendees;
 
@@ -74,7 +74,13 @@ public class Potluck {
     public void setPotluckItemList(List<PotluckItem> potluckItemList) {
         this.potluckItemList = potluckItemList;
     }
+    public String[] getMapResult(){
+        return this.mapResult;
+    }
 
+    public void setMapResult(String[] mapResult){
+        this.mapResult=mapResult;
+    }
     public long getId() {
         return id;
     }

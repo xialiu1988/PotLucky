@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>PotLuck Detail</title>
@@ -26,7 +27,11 @@
     <p th:text="'Date: ' + ${newPotluck.dateofPotluck}"></p>
 
     <p th:text="'Location: ' + ${newPotluck.location}"></p>
+  
+  <img th:src="'https://maps.googleapis.com/maps/api/staticmap?center='+${newPotluck.mapResult[0]}+'%2c%20'+${newPotluck.mapResult[1]}+'&zoom=13&size=600x300&maptype=roadmap&key='+${@environment.getProperty('GEOCODE_API_KEY')}" />
+  
     <p>Additional Details: </p>
+  
     <p th:text="${newPotluck.details != null} ? ${newPotluck.details} : none"></p>
 
 </div>
