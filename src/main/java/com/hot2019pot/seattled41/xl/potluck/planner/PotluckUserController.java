@@ -15,25 +15,42 @@ import java.security.Principal;
 import java.sql.Date;
 import java.util.ArrayList;
 
-
+/**
+ * This is the Controller
+ * for a PotluckUser.
+ */
 @Controller
 public class PotluckUserController {
 
     @Autowired
-    PotluckUserRepository potLuckUserRepository;
+    private PotluckUserRepository potLuckUserRepository;
 
     @Autowired
-    PotluckRepository potLuckRepository;
+    private PotluckRepository potLuckRepository;
+
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-
+    /**
+     * Get mapping to retrieve registration page
+     * for new user.
+     * @return String, html page
+     */
     @GetMapping("/signup")
     public String getsignup(){
         return "signup";
     }
 
 
+    /**
+     * Post mapping to save
+     * information of new user.
+     * @param firstname String, user first name
+     * @param lastname String, user last name
+     * @param username String, user username (must be unique)
+     * @param password String, user password
+     * @return View, html to access logged-in home
+     */
     @PostMapping("/signup")
     public RedirectView addNewUser( String firstname,String lastname,String username, String password){
         PotluckUser newUser=  new PotluckUser(firstname,lastname,username,passwordEncoder.encode(password));
@@ -43,60 +60,49 @@ public class PotluckUserController {
         return new RedirectView("/");
     }
 
-
+    /**
+     * Get mapping for user to route to
+     * page to add a new Potluck.
+     * @param m Model, hive/cache for front-facing
+     * @param p Principal, logged-in user object
+     * @return String, page to retrieve
+     */
     @GetMapping("/Potluck/add")
     public String createPotluck(Model m, Principal p){
         m.addAttribute("principal", p);
         return "createPotluck";
     }
 
-    @GetMapping("/home")
-    public String goHomePage(Model m, Principal p){
-        if (p ==null) {
-            m.addAttribute("principal", null);
-        }else {
-            m.addAttribute("principal", p);
-        }
-        return "home.html";
-    }
-
-    @GetMapping("/logout_complete")
-    public String getLogoutPage() {
-        return "logout_completed.html";
-    }
-
-    @GetMapping("/aboutus")
-    public String getAboutUs(Model m, Principal p) {
-        if (p ==null) {
-            m.addAttribute("principal", null);
-        }else {
-            m.addAttribute("principal", p);
-        }
-        return "aboutus.html";
-    }
-
+    /**
+     * Post mapping to create new Potluck object
+     * and save it to db.
+     * @param p Principal, logged-in user
+     * @param eventname String, Potluck name
+     * @param dateofPotluck Date, Potluck date
+     * @param location String, Potluck location
+     * @param details String, Potluck additional details
+     * @param m Model, hive/cache for front-facing
+     * @return String, html page to retrieve
+     */
     @PostMapping("/Potluck")
     public String newPotluck(Principal p, String eventname, Date dateofPotluck, String location, String details, Model m){
         PotluckUser creator = potLuckUserRepository.findByUsername(p.getName());
-        Potluck newP=new Potluck();
-        newP.eventname=eventname;
-        newP.dateofPotluck=dateofPotluck;
-        newP.location=location;
-        newP.details=details;
-        newP.creator=creator;
-//        newP.stuff=new ArrayList<>();
 
         //generate code
         String code = generateCode();
-        newP.code=code;
+
+        //create new Potluck object and save to db
+        Potluck newP = new Potluck(eventname, dateofPotluck, location, details, creator, code);
         potLuckRepository.save(newP);
-        Potluck find =potLuckRepository.findByCode(code);
+        //add to creator list and save to db
         creator.createPotlucks.add(newP);
         potLuckUserRepository.save(creator);
+
+        Potluck find = potLuckRepository.findByCode(code);
+
         m.addAttribute("newPotluck",newP);
         return  "redirect:/Potlucks/"+find.id;
     }
-
 
     private String generateCode(){
         // chose a Character random from this String
@@ -108,7 +114,6 @@ public class PotluckUserController {
         StringBuilder sb = new StringBuilder(5);
 
         for (int i = 0; i < 5; i++) {
-
             // generate a random number between
             // 0 to AlphaNumericString variable length
             int index
@@ -119,9 +124,7 @@ public class PotluckUserController {
             sb.append(AlphaNumericString
                     .charAt(index));
         }
-
         return sb.toString();
-
     }
 
 }
