@@ -90,7 +90,8 @@ public class PotluckController {
 
         return new RedirectView("/Potlucks/" + potluck.id);
     }
-<<<<<<< HEAD
+
+
    @PostMapping("/delete/{id}")
     public RedirectView deletePotluck(Principal p,@PathVariable Long id){
         potluck=potLuckRepository.findById(id).get();
@@ -100,7 +101,7 @@ public class PotluckController {
         potLuckRepository.deleteById(id);
         return new RedirectView("/");
     }
-=======
+
 
     @PostMapping("/updateDetails")
     public RedirectView updatePotluckDetails(String details) {
@@ -110,6 +111,5 @@ public class PotluckController {
         return new RedirectView("/Potlucks/" + potluck.id);
     }
 
->>>>>>> 500ff678cc1631fe5da46741cc98c7a136884345
 }
 
