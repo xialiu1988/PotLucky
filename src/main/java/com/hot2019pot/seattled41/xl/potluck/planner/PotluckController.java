@@ -31,14 +31,9 @@ public class PotluckController {
         //check if the potluck belongs to the current user or the potluck's attendees contains the current user
       if(potluck.creator.equals(currentUser)){
           model.addAttribute("curruser",true);
-      }
-
-      else if(potluck.attendees.contains(currentUser))
-
-      {
+      } else if(potluck.attendees.contains(currentUser)) {
           model.addAttribute("curruser",false);
       }
-
 
         model.addAttribute("newPotluck",potluck);
         model.addAttribute("principal", P);
@@ -95,6 +90,7 @@ public class PotluckController {
 
         return new RedirectView("/Potlucks/" + potluck.id);
     }
+<<<<<<< HEAD
    @PostMapping("/delete/{id}")
     public RedirectView deletePotluck(Principal p,@PathVariable Long id){
         potluck=potLuckRepository.findById(id).get();
@@ -104,5 +100,16 @@ public class PotluckController {
         potLuckRepository.deleteById(id);
         return new RedirectView("/");
     }
+=======
+
+    @PostMapping("/updateDetails")
+    public RedirectView updatePotluckDetails(String details) {
+        //reset details and save to db
+        potluck.details = details;
+        potLuckRepository.save(potluck);
+        return new RedirectView("/Potlucks/" + potluck.id);
+    }
+
+>>>>>>> 500ff678cc1631fe5da46741cc98c7a136884345
 }
 
