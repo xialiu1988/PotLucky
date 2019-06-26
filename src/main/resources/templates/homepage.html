@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link href="/styles.css" rel="stylesheet" />
+
 </head>
 <body>
 
@@ -18,7 +20,7 @@
 
 <form th:if="${user}" action="/search" method="get">
     Potluck Code: <input type="text" name="code" />
-    <button type="submit">Search</button>
+    <input type="submit" value="Search" />
 </form>
 
 <div th:if="${user}">

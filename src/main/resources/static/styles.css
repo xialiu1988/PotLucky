@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Boogaloo|Mali|Neucha|News+Cycle&display=swap');
+
+
+
+/*margins*/
+body {
+    margin: 12% 9% 10% 9%;
+}
+
+.red {
+    color: red;
+}
+
+/*elements*/
+h1, a {
+    font-family: 'Mali', 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
+
+}
+
+h2, h3, h4 {
+    font-family: 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
+}
+
+p, span {
+    font-family: 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
+}
+
+li {
+
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+a:visited {
+    font-size: 14px;
+    color: green;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+input, textarea {
+    font-family: 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
+    font-size: 14px;
+    padding: 10px 5px;
+    margin: 5px;
+    border-radius: 5px 10px;
+}
+
+input[type=submit] {
+    width: 100px;
+    border-radius: 10px;
+    background-color: #d5e0f2;
+    font-family: 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
+    font-size: 16px;
+    transition: ease-in-out, width .35s ease-in-out;
+}
+
+input[type=submit]:hover {
+    background: #92f4f4;
+}
+
+.nav {
+    color: navy;
+}
+
+a {
+    margin-right: 50px;
+}
+
+.bold {
+    color: #4286f4;
+}
+
+
+button {
+    background: #cc2112;
+    color: white;
+    border-radius: 10px;
+    margin: 60px 0;
+    font-family: 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
+    font-size: 16px;
+    padding: 10px 5px;
+}
