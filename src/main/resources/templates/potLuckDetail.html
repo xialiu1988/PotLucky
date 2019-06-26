@@ -15,20 +15,26 @@
     </form>
 </div>
 
-<!--TODO:if creator, show potluck code-->
 <h1 th:text="${newPotluck.eventname}"></h1>
 Creator: <p th:text="${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
 Date: <p th:text="${newPotluck.dateofPotluck}"></p>
 Location: <p th:text="${newPotluck.location}"></p>
-Additional Details: <p th:text="${newPotluck.details}"></p>
-Share Code:<p th:if="${curruser==true}" th:text="${newPotluck.code}"></p>
+Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details != null} ? ${newPotluck.details} : none"></p>
+    <form th:if="${curruser==true}" action="/updateDetails" method="post">
+        <textarea rows="5" cols="60" th:text="${newPotluck.details}" name="details"></textarea>
+    <input type='submit' name='update' value='Update Details' /></form>
+<p th:if="${curruser==true}" th:text="${'ShareCode: ' + newPotluck.code}"></p>
 
 
 <p>List of Items for the event:</p>
-<span th:if="${newPotluck.potluckItemList.size() == 0 }">This list is empty.</span>
+<span th:if="${newPotluck.attendees.size() == 0 }">This list is empty.</span>
 <ul th:if="${newPotluck.potluckItemList.size() > 0 }">
     <li th:each="item :${newPotluck.potluckItemList}">
-        <span th:text="${item.item + ', quantity: ' + item.quantity}"></span>
+        <p th:text="${item.user.username}+':'+${item.item}+${item.quantity}"></p>
+
+          </li>
+    </ul>
+        </p>
     </li>
 
 </ul>
@@ -50,6 +56,15 @@ Share Code:<p th:if="${curruser==true}" th:text="${newPotluck.code}"></p>
         </li>
     </ul>
 </div>
+<<<<<<< HEAD
+
+<form th:if="${curruser==true}" th:action="'/delete/'+${newPotluck.id}" method="POST">
+    <button type="submit">Delete</button>
+</form>
+
+
+=======
 <div th:replace="fragments/footer :: foot"></div>
+>>>>>>> dd233aeb556d4eb09f0ff718477ad5d112873c5c
 </body>
 </html>
