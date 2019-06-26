@@ -24,10 +24,14 @@ Share Code:<p th:if="${curruser==true}" th:text="${newPotluck.code}"></p>
 
 
 <p>List of Items for the event:</p>
-<span th:if="${newPotluck.potluckItemList.size() == 0 }">This list is empty.</span>
+<span th:if="${newPotluck.attendees.size() == 0 }">This list is empty.</span>
 <ul th:if="${newPotluck.potluckItemList.size() > 0 }">
     <li th:each="item :${newPotluck.potluckItemList}">
-        <span th:text="${item.item + ', quantity: ' + item.quantity}"></span>
+        <p th:text="${item.user.username}+':'+${item.item}+${item.quantity}"></p>
+
+          </li>
+    </ul>
+        </p>
     </li>
 
 </ul>
@@ -49,6 +53,11 @@ Share Code:<p th:if="${curruser==true}" th:text="${newPotluck.code}"></p>
         </li>
     </ul>
 </div>
+
+<form th:if="${curruser==true}" th:action="'/delete/'+${newPotluck.id}" method="POST">
+    <button type="submit">Delete</button>
+</form>
+
 
 </body>
 </html>
