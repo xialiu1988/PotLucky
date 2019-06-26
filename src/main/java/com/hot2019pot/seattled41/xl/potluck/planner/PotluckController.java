@@ -8,9 +8,14 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * This is the Controller
+ * for Potluck routes.
+ * Has create, delete, update, add routes
+ * and get for a specific Potluck.
+ */
 @Controller
 public class PotluckController {
     @Autowired
@@ -23,6 +28,13 @@ public class PotluckController {
     private Potluck potluck;
     private PotluckUser currentUser;
 
+    /**
+     * Get route for one Potluck object.
+     * @param id long, Potluck id
+     * @param P Principal object, logged-in user
+     * @param model Model, hive/cache for front-facing
+     * @return String, html page to view one Potluck
+     */
     @GetMapping("/Potlucks/{id}")
     public String getDetails(@PathVariable Long id, Principal P, Model model){
 
@@ -40,6 +52,15 @@ public class PotluckController {
         return "potLuckDetail";
     }
 
+    /**
+     * Post route for Potluck.
+     * @param id long, Potluck id
+     * @param p Principal object, logged-in user
+     * @param m Model, hive/cache for front-facing
+     * @param action String, if action is yes, goes into conditional
+     *               to update
+     * @return
+     */
     @PostMapping("/Potlucks/{id}")
     public RedirectView updatePotluck(@PathVariable Long id, Principal p, Model m, @RequestParam String action){
         //find the potluck
@@ -59,6 +80,14 @@ public class PotluckController {
         return new RedirectView("/");
     }
 
+    /**
+     * Get route for db search for one Potluck
+     * that already exists, that another User created.
+     * @param code String, code to search for existing Potluck
+     * @param p Principal object, logged-in user
+     * @param m Model, hive/cache for front-facing
+     * @return String, html page to view the Potluck
+     */
     @GetMapping("/search")
     public String getOnepotluck(String code, Principal p, Model m){
 
@@ -73,6 +102,13 @@ public class PotluckController {
         return "potLuckDetail";
     }
 
+    /**
+     * Post mapping to add a PotluckItem.
+     * @param itemName String, item
+     * @param quantity int, quantity of item
+     * @param p Principal, logged-in user
+     * @return String, html page to view the revised Potluck
+     */
     @PostMapping("/addItem")
     public RedirectView addPotLuckItem(String itemName, int quantity, Principal p) {
         currentUser = potLuckUserRepository.findByUsername(p.getName());
@@ -90,8 +126,14 @@ public class PotluckController {
         return new RedirectView("/Potlucks/" + potluck.id);
     }
 
+    /**
+     * Post mapping to delete a Potluck object.
+     * @param p Principal, logged-in user
+     * @param id long, id of Potluck object
+     * @return View, route to html page to view revised Potluck
+     */
     @PostMapping("/delete/{id}")
-    public RedirectView deletePotluck(Principal p,@PathVariable Long id){
+    public RedirectView deletePotluck(Principal p, @PathVariable Long id){
         potluck=potLuckRepository.findById(id).get();
          List<PotluckItem> list = potLuckItemRepository.findByPotluck(potluck);
         potLuckItemRepository.deleteAll(list);
@@ -100,6 +142,11 @@ public class PotluckController {
         return new RedirectView("/");
     }
 
+    /**
+     * Post mapping to delete a PotluckItem object.
+     * @param id long, id of PotluckItem
+     * @return View, route to html page to view revised Potluck
+     */
     @PostMapping("/delete/potluckitems/{id}")
     public RedirectView deletePotluckItem(@PathVariable Long id){
 
@@ -107,6 +154,14 @@ public class PotluckController {
         return new RedirectView("/Potlucks/" + potluck.id);
     }
 
+    /**
+     * Post mapping to update details of a Potluck object.
+     * Only creator could see and access.
+     * @param details String, Potluck additional details
+     * @param location String, Potluck location
+     * @param dateofPotluck Date, Potluck date
+     * @return View, route to html page to view revised Potluck
+     */
     @PostMapping("/updateDetails")
     public RedirectView updatePotluckDetails(String details, String location, Date dateofPotluck) {
         //reset details and save to db

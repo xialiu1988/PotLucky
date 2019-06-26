@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * PotluckUser object - user.
+ */
 @Entity
 public class PotluckUser implements UserDetails {
     @Id
@@ -25,8 +28,18 @@ public class PotluckUser implements UserDetails {
     @OneToMany(mappedBy="creator")
     Set<Potluck> createPotlucks;
 
-    //constructor
+    /**
+     * Default constructor
+     */
     public PotluckUser(){}
+
+    /**
+     * Constructor with params
+     * @param firstname String, user first name
+     * @param lastname String, user last name
+     * @param username String, user username - must be unique
+     * @param password String, user password
+     */
     public PotluckUser(String firstname, String lastname, String username, String password){
         this.firstname=firstname;
         this.lastname=lastname;

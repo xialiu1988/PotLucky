@@ -6,6 +6,10 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+/**
+ * PotluckItem object
+ * that is attached to Potluck object.
+ */
 @Entity
 public class PotluckItem {
     @Id
@@ -18,8 +22,19 @@ public class PotluckItem {
     @ManyToOne
     Potluck potluck;
 
+    /**
+     * Default Constructor
+     */
     public PotluckItem() {}
 
+    /**
+     * Constructor with params
+     * @param item String, item
+     * @param quantity int, quantity of item
+     * @param potluck Potluck object, event PotluckItem object is part of
+     * @param user PotluckUser, the user who created and
+     *             is responsible for newly created PotLuckItem
+     */
     public PotluckItem(String item, int quantity,Potluck potluck, PotluckUser user) {
         this.item = item;
         this.quantity = quantity;
@@ -27,6 +42,7 @@ public class PotluckItem {
         this.user = user;
     }
 
+    /** Getters and Setters **/
     public Potluck getPotluck(){
         return potluck;
     }
