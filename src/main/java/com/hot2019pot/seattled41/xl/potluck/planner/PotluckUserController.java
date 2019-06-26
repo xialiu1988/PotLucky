@@ -60,7 +60,7 @@ public class PotluckUserController {
         return "home.html";
     }
 
-    @GetMapping("/logout_completed")
+    @GetMapping("/logout_complete")
     public String getLogoutPage() {
         return "logout_completed.html";
     }
