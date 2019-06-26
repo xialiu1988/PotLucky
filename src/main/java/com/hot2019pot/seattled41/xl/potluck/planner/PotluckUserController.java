@@ -84,7 +84,6 @@ public class PotluckUserController {
         newP.location=location;
         newP.details=details;
         newP.creator=creator;
-//        newP.stuff=new ArrayList<>();
 
         //generate code
         String code = generateCode();

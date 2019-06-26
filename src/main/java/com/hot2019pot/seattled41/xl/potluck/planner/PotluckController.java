@@ -6,11 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.transaction.Transactional;
 import java.security.Principal;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
-@Transactional
+
 @Controller
 public class PotluckController {
     @Autowired
@@ -20,8 +20,8 @@ public class PotluckController {
     @Autowired
     PotluckItemRepository potLuckItemRepository;
 
-    Potluck potluck;
-    PotluckUser currentUser;
+    private Potluck potluck;
+    private PotluckUser currentUser;
 
     @GetMapping("/Potlucks/{id}")
     public String getDetails(@PathVariable Long id, Principal P, Model model){
@@ -39,7 +39,6 @@ public class PotluckController {
         model.addAttribute("principal", P);
         return "potLuckDetail";
     }
-
 
     @PostMapping("/Potlucks/{id}")
     public RedirectView updatePotluck(@PathVariable Long id, Principal p, Model m, @RequestParam String action){
@@ -91,8 +90,7 @@ public class PotluckController {
         return new RedirectView("/Potlucks/" + potluck.id);
     }
 
-
-   @PostMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public RedirectView deletePotluck(Principal p,@PathVariable Long id){
         potluck=potLuckRepository.findById(id).get();
          List<PotluckItem> list = potLuckItemRepository.findByPotluck(potluck);
@@ -102,7 +100,6 @@ public class PotluckController {
         return new RedirectView("/");
     }
 
-
     @PostMapping("/delete/potluckitems/{id}")
     public RedirectView deletePotluckItem(@PathVariable Long id){
 
@@ -110,12 +107,12 @@ public class PotluckController {
         return new RedirectView("/Potlucks/" + potluck.id);
     }
 
-
-
     @PostMapping("/updateDetails")
-    public RedirectView updatePotluckDetails(String details) {
+    public RedirectView updatePotluckDetails(String details, String location, Date dateofPotluck) {
         //reset details and save to db
-        potluck.details = details;
+        potluck.setLocation(location);
+        potluck.setDetails(details);
+        potluck.setDateofPotluck(dateofPotluck);
         potLuckRepository.save(potluck);
         return new RedirectView("/Potlucks/" + potluck.id);
     }
