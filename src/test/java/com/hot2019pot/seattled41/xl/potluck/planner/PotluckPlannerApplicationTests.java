@@ -1,13 +1,17 @@
 package com.hot2019pot.seattled41.xl.potluck.planner;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.sql.Date;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -110,11 +114,14 @@ public class PotluckPlannerApplicationTests {
 	}
 
 	@Test
+	@WithMockUser
 	public void testPotluckSignedInRoutePass() throws Exception {
-		// Need to add testing for this.
-		// this.mockMvc.perform(get("/Potluck")).andExpect(status().is3xxRedirection());
-		PotluckUser testUser = createTestUser();
-		Potluck testPotluck = createTestPotluck(testUser);
+		mockMvc.perform(MockMvcRequestBuilders.get("/Potluck")
+				.accept(MediaType.ALL));
+//				.andExpect(status().isOk());
+
+//		this.mockMvc.perform(get("/Potluck")).andExpect(status().isOk());
+
 	}
 
 	@Test
@@ -156,12 +163,6 @@ public class PotluckPlannerApplicationTests {
 		// this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
 		PotluckUser testUser = createTestUser();
 
-	}
-
-	@Test
-	public void testPotLuckConstructorPass() throws Exception {
-		// Need To Add Test
-		// Test Getters
 	}
 
 	@Test
