@@ -15,12 +15,11 @@
     </form>
 </div>
 
-<!--TODO:if creator, show potluck code-->
 <h1 th:text="${newPotluck.eventname}"></h1>
 Creator: <p th:text="${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
 Date: <p th:text="${newPotluck.dateofPotluck}"></p>
 Location: <p th:text="${newPotluck.location}"></p>
-Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details.trim() != ''} ? 'none' : newPotluck.details"></p>
+Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details != null} ? ${newPotluck.details} : none"></p>
     <form th:if="${curruser==true}" action="/updateDetails" method="post">
         <textarea rows="5" cols="60" th:text="${newPotluck.details}" name="details"></textarea>
     <input type='submit' name='update' value='Update Details' /></form>
