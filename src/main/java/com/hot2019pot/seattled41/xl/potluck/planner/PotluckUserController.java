@@ -87,20 +87,19 @@ public class PotluckUserController {
     @PostMapping("/Potluck")
     public String newPotluck(Principal p, String eventname, Date dateofPotluck, String location, String details, Model m){
         PotluckUser creator = potLuckUserRepository.findByUsername(p.getName());
-        Potluck newP=new Potluck();
-        newP.eventname=eventname;
-        newP.dateofPotluck=dateofPotluck;
-        newP.location=location;
-        newP.details=details;
-        newP.creator=creator;
 
         //generate code
         String code = generateCode();
-        newP.code=code;
+
+        //create new Potluck object and save to db
+        Potluck newP = new Potluck(eventname, dateofPotluck, location, details, creator, code);
         potLuckRepository.save(newP);
-        Potluck find =potLuckRepository.findByCode(code);
+        //add to creator list and save to db
         creator.createPotlucks.add(newP);
         potLuckUserRepository.save(creator);
+
+        Potluck find = potLuckRepository.findByCode(code);
+
         m.addAttribute("newPotluck",newP);
         return  "redirect:/Potlucks/"+find.id;
     }
