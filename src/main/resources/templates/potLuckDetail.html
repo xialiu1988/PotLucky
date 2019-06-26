@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>PotLuck Detail</title>
 </head>
 <body>
 <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
@@ -32,7 +32,7 @@ Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details 
     <li th:each="item :${newPotluck.potluckItemList}">
         <p th:text="${item.user.username}+':'+${item.item}+${item.quantity}">
         <form th:if="${principal.name==item.user.username}" th:action="'/delete/potluckitems/'+${item.id}" method="POST">
-            <button type="submit">Delete</button>
+            <button type="submit">Delete This Item</button>
         </form>
         </p>
     </li>
@@ -57,7 +57,7 @@ Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details 
 </div>
 
 <form th:if="${curruser==true}" th:action="'/delete/'+${newPotluck.id}" method="POST">
-    <button type="submit">Delete</button>
+    <button type="submit">Delete This Potluck</button>
 </form>
 
 
