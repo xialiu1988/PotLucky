@@ -1,7 +1,14 @@
+* {
+background-color: #F5FFFA;
+}
+
+.header {
+text-align: center;
+}
+
 .foot {
  color: lightgray;
  text-align: center;
- background-color: blue;
 }
 
 #signupform {
@@ -14,3 +21,34 @@ button a {
 color: white;
 }
 
+#homeImg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10%;
+  border: 5px solid blue;
+}
+
+#homeTitle {
+  text-align: center;
+  font-weight: bold;
+}
+
+.homeParagraph {
+  text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: normal;
+	text-transform: normal;
+	letter-spacing: normal;
+	line-height: 1.3em;
+	color: #596365;
+}
+
+.headerTitle {
+font-size: 32px;
+}
