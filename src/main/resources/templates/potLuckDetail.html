@@ -31,14 +31,8 @@ Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details 
 <ul th:if="${newPotluck.potluckItemList.size() > 0 }">
     <li th:each="item :${newPotluck.potluckItemList}">
         <p th:text="${item.user.username}+':'+${item.item}+${item.quantity}"></p>
-
-          </li>
-    </ul>
-        </p>
     </li>
-
 </ul>
-
 
 
 <form th:if="${curruser!=null}" th:action="@{/addItem}" method="POST">
@@ -56,15 +50,12 @@ Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details 
         </li>
     </ul>
 </div>
-<<<<<<< HEAD
 
 <form th:if="${curruser==true}" th:action="'/delete/'+${newPotluck.id}" method="POST">
     <button type="submit">Delete</button>
 </form>
 
 
-=======
 <div th:replace="fragments/footer :: foot"></div>
->>>>>>> dd233aeb556d4eb09f0ff718477ad5d112873c5c
 </body>
 </html>
