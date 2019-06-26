@@ -1,5 +1,7 @@
 package com.hot2019pot.seattled41.xl.potluck.planner;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,14 +22,14 @@ public class PotluckUser implements UserDetails {
     String username;
     String password;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "attendees",cascade = CascadeType.ALL)
     Set<Potluck> attendingPotlucks;
 
     @OneToMany(mappedBy="creator")
     Set<Potluck> createPotlucks;
-
-    @OneToMany
-    Set<PotluckItem> potluckItems;
+//
+//    @OneToMany(mappedBy="user")
+//    List<PotluckItem> potluckItems;
 
     //constructor
     public PotluckUser(){}
@@ -39,6 +41,12 @@ public class PotluckUser implements UserDetails {
     }
 
 
+//    public List<PotluckItem> getPotluckItems(){
+//        return this.potluckItems;
+//    }
+//    public void setPotluckItems(List<PotluckItem> potluckItems){
+//        this.potluckItems=potluckItems;
+//    }
     public long getId() {
         return id;
     }

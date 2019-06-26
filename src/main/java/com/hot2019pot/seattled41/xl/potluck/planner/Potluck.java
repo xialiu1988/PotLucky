@@ -1,5 +1,7 @@
 package com.hot2019pot.seattled41.xl.potluck.planner;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -23,11 +25,12 @@ public class Potluck {
     PotluckUser creator;
 
     String code;
+
     @ManyToMany
     Set<PotluckUser> attendees;
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy="potluck")
-    List<PotluckItem> potluckItemList;
+     List<PotluckItem> potluckItemList;
 
     public Potluck() {
     }
