@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>PotLuck Detail</title>
@@ -19,6 +20,8 @@
 Creator: <p th:text="${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
 Date: <p th:text="${newPotluck.dateofPotluck}"></p>
 Location: <p th:text="${newPotluck.location}"></p>
+<img th:src="'https://maps.googleapis.com/maps/api/staticmap?center='+${newPotluck.mapResult[0]}+'%2c%20'+${newPotluck.mapResult[1]}+'&zoom=13&size=600x300&maptype=roadmap&key='+${@environment.getProperty('GEOCODE_API_KEY')}" />
+
 Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details != null} ? ${newPotluck.details} : none"></p>
     <form th:if="${curruser==true}" action="/updateDetails" method="post">
         <textarea rows="5" cols="60" th:text="${newPotluck.details}" name="details"></textarea>
