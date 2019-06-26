@@ -29,14 +29,9 @@ public class PotluckController {
         //check if the potluck belongs to the current user or the potluck's attendees contains the current user
       if(potluck.creator.equals(currentUser)){
           model.addAttribute("curruser",true);
-      }
-
-      else if(potluck.attendees.contains(currentUser))
-
-      {
+      } else if(potluck.attendees.contains(currentUser)) {
           model.addAttribute("curruser",false);
       }
-
 
         model.addAttribute("newPotluck",potluck);
         model.addAttribute("principal", P);
@@ -96,7 +91,13 @@ public class PotluckController {
         return new RedirectView("/Potlucks/" + potluck.id);
     }
 
-
+    @PostMapping("/updateDetails")
+    public RedirectView updatePotluckDetails(String details) {
+        //reset details and save to db
+        potluck.details = details;
+        potLuckRepository.save(potluck);
+        return new RedirectView("/Potlucks/" + potluck.id);
+    }
 
 }
 
