@@ -103,6 +103,15 @@ public class PotluckController {
     }
 
 
+    @PostMapping("/delete/potluckitems/{id}")
+    public RedirectView deletePotluckItem(@PathVariable Long id){
+
+        potLuckItemRepository.deleteById(id);
+        return new RedirectView("/Potlucks/" + potluck.id);
+    }
+
+
+
     @PostMapping("/updateDetails")
     public RedirectView updatePotluckDetails(String details) {
         //reset details and save to db
