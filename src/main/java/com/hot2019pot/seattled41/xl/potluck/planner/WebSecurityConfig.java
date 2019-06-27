@@ -38,13 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // allow requests to all URLS that match the patterns even if not logged in
                 .antMatchers(HttpMethod.GET,"/*.css", "/*.jpeg", "/*.jpg").permitAll()
 
-                .antMatchers("/", "/login","/error","/signup", "/home", "/aboutus", "/logout_complete").permitAll()
+                .antMatchers("/", "/login","/error","/signup","/aboutus", "/logout_complete").permitAll()
                 // anything else, you must be logged in
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/myprofile", true)
                 .failureUrl("/error")
                 .and()
                 .logout()

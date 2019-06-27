@@ -145,7 +145,7 @@ public class PotluckController {
         potLuckItemRepository.deleteAll(list);
         potluck.attendees.clear();
         potLuckRepository.deleteById(id);
-        return new RedirectView("/");
+        return new RedirectView("/myprofile");
     }
 
     /**

@@ -59,7 +59,6 @@ input {
 }
 
 input[type=submit] {
-    width: 100px;
     border-radius: 10px;
     background-color: #d5e0f2;
     font-family: 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
