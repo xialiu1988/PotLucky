@@ -55,16 +55,16 @@ public class PotluckPlannerApplicationTests {
 		this.mockMvc.perform(get("/")).andExpect(status().isOk());
 	}
 
-	@Test
-	public void testHomeNotSignedInRoutePass() throws Exception {
-		this.mockMvc.perform(get("/home")).andExpect(status().isOk());
-	}
+//	@Test
+//	public void testHomeNotSignedInRoutePass() throws Exception {
+//		this.mockMvc.perform(get("/home")).andExpect(status().isOk());
+//	}
 
-	@Test
-	public void testHomeSignedInRoutePass() throws Exception {
-		PotluckUser testUser = createTestUser();
-		this.mockMvc.perform(get("/home")).andExpect(status().isOk());
-	}
+//	@Test
+//	public void testHomeSignedInRoutePass() throws Exception {
+//		PotluckUser testUser = createTestUser();
+//		this.mockMvc.perform(get("/home")).andExpect(status().isOk());
+//	}
 
 	@Test
 	public void testLoginRoutePass() throws Exception {
