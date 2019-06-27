@@ -35,7 +35,7 @@ public class HomepageController {
             m.addAttribute("principal", p);
             m.addAttribute("user",potLuckUserRepository.findByUsername(p.getName()));
         }
-      return "homepage";
+      return "home";
     }
 
     /**
