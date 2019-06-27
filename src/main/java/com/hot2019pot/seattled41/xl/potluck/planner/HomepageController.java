@@ -22,7 +22,7 @@ public class HomepageController {
      * @param m Model, cache/hive logged-in user
      * @return String, html page to retrieve
      */
-    @GetMapping("/")
+    @GetMapping("/myprofile")
     public String getRoot(Principal p, Model m ){
         if(p!=null){
             if(potLuckUserRepository.findByUsername(p.getName()).createPotlucks.size()>0){
@@ -35,7 +35,7 @@ public class HomepageController {
             m.addAttribute("principal", p);
             m.addAttribute("user",potLuckUserRepository.findByUsername(p.getName()));
         }
-      return "home";
+      return "homepage";
     }
 
     /**
@@ -54,14 +54,14 @@ public class HomepageController {
      * @param p Principal, logged-in user object
      * @return String, page to retrieve
      */
-    @GetMapping("/home")
+    @GetMapping("/")
     public String goHomePage(Model m, Principal p){
         if (p ==null) {
             m.addAttribute("principal", null);
         }else {
             m.addAttribute("principal", p);
         }
-        return "home.html";
+        return "home";
     }
 
     /**

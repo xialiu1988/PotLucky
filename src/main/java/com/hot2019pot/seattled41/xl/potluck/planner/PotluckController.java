@@ -1,9 +1,13 @@
 package com.hot2019pot.seattled41.xl.potluck.planner;
 
+import com.google.gson.Gson;
+import com.hot2019pot.seattled41.xl.potluck.planner.Map.MyPojo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
@@ -18,6 +22,8 @@ import java.util.List;
  */
 @Controller
 public class PotluckController {
+    @Value("${GEOCODE_API_KEY}")
+    private String apikey;
     @Autowired
     PotluckRepository potLuckRepository;
     @Autowired
@@ -77,7 +83,7 @@ public class PotluckController {
 
         m.addAttribute("user", currentUser);
         m.addAttribute("principal", p);
-        return new RedirectView("/");
+        return new RedirectView("/myprofile");
     }
 
     /**
@@ -164,6 +170,10 @@ public class PotluckController {
      */
     @PostMapping("/updateDetails")
     public RedirectView updatePotluckDetails(String details, String location, Date dateofPotluck) {
+
+        //get location
+        double[] location1 = getLocaionMap(location);
+        potluck.setMapResult(location1);
         //reset details and save to db
         potluck.setLocation(location);
         potluck.setDetails(details);
@@ -171,6 +181,89 @@ public class PotluckController {
         potLuckRepository.save(potluck);
         return new RedirectView("/Potlucks/" + potluck.id);
     }
+
+
+
+
+    /**
+     * Post mapping to create new Potluck object
+     * and save it to db.
+     * @param p Principal, logged-in user
+     * @param eventname String, Potluck name
+     * @param dateofPotluck Date, Potluck date
+     * @param location String, Potluck location
+     * @param details String, Potluck additional details
+     * @param m Model, hive/cache for front-facing
+     * @return String, html page to retrieve
+     */
+
+    @PostMapping("/Potluck")
+    public String newPotluck(Principal p, String eventname, Date dateofPotluck, String location, String details, Model m) {
+        PotluckUser creator = potLuckUserRepository.findByUsername(p.getName());
+
+        Potluck newP = new Potluck();
+        newP.eventname = eventname;
+        newP.dateofPotluck = dateofPotluck;
+        newP.location = location;
+        newP.details = details;
+        newP.creator = creator;
+        //get location
+        double[] location1 = getLocaionMap(location);
+        //generate code
+        String code = generateCode();
+        newP.code = code;
+        newP.mapResult=location1;
+        potLuckRepository.save(newP);
+        System.out.println(newP.mapResult[0]);
+        Potluck find = potLuckRepository.findByCode(code);
+        creator.createPotlucks.add(newP);
+        potLuckUserRepository.save(creator);
+        m.addAttribute("newPotluck", newP);
+        return "redirect:/Potlucks/" + find.id;
+    }
+
+
+    private String generateCode() {
+
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(5);
+        for (int i = 0; i < 5; i++) {
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int) (AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
+
+
+    //make google map api call store lag,lng to the result string array
+    private double[] getLocaionMap(String query) {
+        double[] results=new double[2];
+        MyPojo location = new MyPojo();
+        String apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+query+"&key="+apikey;
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(apiUrl, String.class);
+        System.out.println(result);
+        Gson g = new Gson();
+        location = g.fromJson(result, MyPojo.class);
+        System.out.println(location.getResults().get(0).getGeometry().getLocation().getLat());
+        System.out.println(location.getResults().get(0).getGeometry().getLocation().getLng());
+        results[0]=location.getResults().get(0).getGeometry().getLocation().getLat();
+        results[1]=location.getResults().get(0).getGeometry().getLocation().getLng();
+        return results;
+    }
+
 
 }
 
