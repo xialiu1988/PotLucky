@@ -3,9 +3,9 @@
 
 
 /*margins*/
-body {
+/*body {
     margin: 10% 9%;
-}
+}*/
 
 header {
     background-color: #a4e55e;
@@ -51,6 +51,11 @@ input, textarea {
     padding: 10px 5px;
     margin: 5px;
     border-radius: 5px 10px;
+    background-color: white;
+}
+
+input {
+    width: 250px;
 }
 
 input[type=submit] {
@@ -80,16 +85,12 @@ input[type=reset]:hover {
     background: #8cdef7;
 }
 
-.nav {
-    color: navy;
+nav a {
+    margin: 0 40px 0 40px;
 }
 
 a {
-    margin-right: 50px;
-}
-
-nav a {
-    margin-right: 100px;
+    margin: 10px;
 }
 
 button, .aboutB {
@@ -107,8 +108,13 @@ button:hover, .aboutB {
     color: black;
 }
 
-.red {
+#red {
+    margin-bottom: -20px;
     color: red;
+}
+
+.margin {
+  margin: 0 auto;
 }
 
 .bold {
@@ -132,5 +138,35 @@ header {
   margin-right: auto;
   border-radius: 10%;
   border: 5px solid blue;
+}
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.center {
+  display: block;
+  text-align: center;
+  margin-top: 45px;
+}
+
+.header {
+ text-align: center;
+}
+
+.foot {
+ color: #1e471d;
+ text-align: center;
+ flex-shrink: 0;
 }
 

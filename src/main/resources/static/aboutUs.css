@@ -3,6 +3,10 @@ div {
   margin: 50px auto;
 }
 
+nav {
+  margin: -50px 0 -110px 0;
+}
+
 section img {
   float: left;
   margin-right: 30px;
@@ -20,16 +24,16 @@ section h2 {
 section p {
   line-height: 20px;
   font-style: italic;
-  height: 115px;
+  height: 125px;
   overflow: scroll;
   margin-bottom: 10px;
   color: #16191f;
 }
 
-button {
+.aboutB {
   text-align: right;
   background: blue;
-  color: white;
+  /*color: white;*/
   border-radius: 2px;
   border: none;
   font-size: 15px;
@@ -40,7 +44,7 @@ button {
   clear: both;
 }
 
-button:hover {
+.aboutB:hover {
   background: rgba(209, 50, 18, 1.0);
   transition: all 350ms;
 }

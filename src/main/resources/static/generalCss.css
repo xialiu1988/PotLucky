@@ -2,15 +2,6 @@
 background-color: #F5FFFA;
 }
 
-.header {
-text-align: center;
-}
-
-.foot {
- color: lightgray;
- text-align: center;
-}
-
 #signupform {
   display: block;
   text-align: center;
@@ -18,7 +9,7 @@ text-align: center;
 }
 
 button a {
-color: white;
+  color: white;
 }
 
 #homeImg {

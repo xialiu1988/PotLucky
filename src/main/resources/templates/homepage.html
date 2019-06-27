@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link href="/styles.css" rel="stylesheet" />
+    <link href="/generalCss.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -15,40 +16,42 @@
     <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
 </div>
 
+<section class="margin">
 
-<h2 th:if="${user}">Welcome, [[${user.firstname}]]</h2>
+    <h1 th:if="${user}">Welcome, [[${user.firstname}]]</h1>
 
-<form th:if="${user}" action="/search" method="get">
-    <span>Potluck Code: </span><input type="text" name="code" />
-    <input type="submit" value="Search" />
-</form>
+    <form th:if="${user}" action="/search" method="get">
+        <label>Potluck Code: <input type="text" name="code" required/></label>
+        <input type="submit" value="Search" />
+    </form>
 
-<div th:if="${user}">
-<div th:if="${mypotlucks}">
-    <h3>My Potlucks</h3>
-<ol>
-    <li th:each="p:${mypotlucks}">
-        <a th:href="'/Potlucks/'+${p.id}">
-       <span th:text="${p.eventname}"></span>ç
-        </a>
-        <span th:text="${p.dateofPotluck}"></span>
-    </li>
-</ol>
-</div>
-
-<div th:if="${attendingpotlucks}">
-    <h3>Attending Potlucks</h3>
+    <div th:if="${user}">
+    <div th:if="${mypotlucks}">
+        <h3>My Potlucks</h3>
     <ol>
-        <li th:each="p:${attendingpotlucks}">
+        <li th:each="p:${mypotlucks}">
             <a th:href="'/Potlucks/'+${p.id}">
-                <span th:text="${p.eventname}"></span>
-            </a><span th:text="${p.dateofPotluck}"></span>
-
+           <span th:text="${p.eventname}"></span>ç
+            </a>
+            <span th:text="${p.dateofPotluck}"></span>
         </li>
     </ol>
-</div>
+    </div>
 
-</div>
+    <div th:if="${attendingpotlucks}">
+        <h3>Attending Potlucks</h3>
+        <ol>
+            <li th:each="p:${attendingpotlucks}">
+                <a th:href="'/Potlucks/'+${p.id}">
+                    <span th:text="${p.eventname}"></span>
+                </a><span th:text="${p.dateofPotluck}"></span>
+
+            </li>
+        </ol>
+    </div>
+
+    </div>
+</section>
 <div th:replace="fragments/footer :: foot"></div>
 </body>
 </html>

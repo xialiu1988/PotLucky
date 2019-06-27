@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <title>Logout</title>
     <link href="/styles.css" rel="stylesheet" />
-
+    <link href="/generalCss.css" rel="stylesheet" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h1>You have been successfully logged out!</h1>
-<p>Thank You for visiting Potlucky!</p>
-<a th:href="@{/login}">Click here to Login again!</a>
+<div class="center">
+    <h1>You have been successfully logged out!</h1>
+    <p>Thank You for visiting Potlucky!</p>
+    <a th:href="@{/login}">Click here to log in again!</a>
+</div>
 <div th:replace="fragments/footer :: foot"></div>
 </body>
 </html>

@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link href="/styles.css" rel="stylesheet" />
+    <link href="/generalCss.css" rel="stylesheet" />
+
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h2>Register for Potlucky, a collaborative environment to plan for potlucks!</h2>
-<h3 class="red">All fields are required</h3>
+<h2 class="homeParagraph">Register for Potlucky, a collaborative environment to plan for potlucks!</h2>
+<h3 id="red" class="homeParagraph">All fields are required</h3>
 <form action="/signup"  method="post" id="signupform">
-    <p>UserName: <input type="text" name="username" required /></p>
-    <p>Password: <input type="password" name="password" required /></p>
-    <p>FirstName: <input type="text" name="firstname"required /></p>
-    <p>LastName: <input type="text" name="lastname" required /></p>
+    <label><p>Username: <input type="text" name="username" placeholder="username" required /></p></label>
+    <label><p>Password: <input type="password" name="password" placeholder="password" required /></p></label>
+    <label><p>First Name: <input type="text" name="firstname" placeholder="first name" required /></p></label>
+    <label><p>Last Name: <input type="text" name="lastname" placeholder="last name" required /></p></label>
     <p><input type="submit" value="Submit"/><input type="reset" value="Reset" /> </p>
 </form>
 <div th:replace="fragments/footer :: foot"></div>
