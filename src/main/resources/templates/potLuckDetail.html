@@ -96,7 +96,7 @@
     <span th:if="${newPotluck.attendees.size() == 0 }">This list is empty.</span>
     <ol th:if="${newPotluck.potluckItemList.size() > 0 }">
         <li th:each="item :${newPotluck.potluckItemList}">
-            <p th:text="${item.user.username}+': '+${item.item}+${item.quantity}">
+            <p th:text="${item.user.firstname}+' '+${item.user.lastname}+': '+${item.item}+' Quantity:  '+${item.quantity}">
             <form th:if="${principal.name==item.user.username}" th:action="'/delete/potluckitems/'+${item.id}" method="POST">
                 <input type="submit" value="Delete This Item" />
             </form>
@@ -116,7 +116,7 @@
         <ol>
             <li th:each="attendee : ${newPotluck.attendees}">
 
-                <p th:text="${attendee.firstname}+' '+${attendee.lastname}"></p>
+                <p th:text="${attendee.firstname}+' '+${attendee.lastname}+' ('+${attendee.username}+')'"></p>
 
             </li>
         </ol>
