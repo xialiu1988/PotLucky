@@ -5,19 +5,19 @@
 
 ![alt text](https://github.com/clothing-color-coordinator/API/blob/master/assets/colorBar2.PNG "Colors")
 
-##Table of Contents
+## Table of Contents
 * [Purpose](#purpose)
 * [Summary](#summary)
 * [Deployed Link](#deployed-link)
-* [Notes](#Notes)
-* [Directions to Clone and Run Locally](#Directions to Clone and Run Locally)
-* [Screen Shots](#Screen-Shots)
-* [Versions](#Versions)
-* [Creators](#Creators)
+* [Notes](#notes)
+* [Clone and Run Locally](#directions-to-clone-and-run-locally)
+* [Screen Shots](#screen-shots)
+* [Versions](#versions)
+* [Creators](#creators)
 * [License](#license)
 
 
-##Purpose 
+## Purpose 
 The purpose of this website is to avoid the problems associated with organizing and executing a successful
  potluck. Users are able to create a potluck event and share a code (invite people) that allows other users 
  to see and edit the event (change the name, location, date, items) as well as delete capabilities (delete items
@@ -25,7 +25,7 @@ The purpose of this website is to avoid the problems associated with organizing 
  location of the potluck by utilizing the Google Maps API (map satelite views are available as well as zoom in and 
  zoom out).  
 
-##Summary
+## Summary
 + Create an account.
 + Login capabilities after account creation
 + Create a potluck event.
@@ -36,10 +36,10 @@ The purpose of this website is to avoid the problems associated with organizing 
 + Potluck creator can choose to delete the event if desired.
 + The person who has added an item to the list can either edit or delete the item.
  
-##Deployed Link
+## Deployed Link
 + http://potlucky.us-east-2.elasticbeanstalk.com/
 
-##Notes
+## Notes
 + Technologies used:
     + Spring
     + Java-based 
@@ -53,7 +53,7 @@ The purpose of this website is to avoid the problems associated with organizing 
         - EC2
         - S3
 
-##Directions to Clone and Run Locally
+## Directions to Clone and Run Locally
 + CD into the desired directory on your local machine and clone the repo by typing the following in your terminal:
 ```
  $ git clone https://github.com/xialiu1988/PotLucky.git
@@ -81,7 +81,7 @@ Environment variables: field.
 in your browser type:
 `` http://localhost:5000 ``
 
-##Screen Shots 
+## Screen Shots 
 + Home Page
 ![](./src/main/resources/static/Home.png)
 + Sign Up
@@ -96,10 +96,10 @@ in your browser type:
 ![](./src/main/resources/static/ItemsandAttendees.png)
 
 
-##Versions:
+## Versions:
 > Version 1.0.0  06/24/19
 
-##Creators
+## Creators
 > **Jen Shin**  [gitHub](https://github.com/jshin83)
 
 > **Luke Chandler**  [gitHub](https://github.com/lhchandler4)
@@ -109,5 +109,5 @@ in your browser type:
 > **Xia Liu**  [gitHub](https://github.com/xialui1988)
 
 
-##License
+## License
 > This project is licensed under the MIT License - see the [License](https://choosealicense.com/licenses/mit/) file for details.
