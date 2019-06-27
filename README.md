@@ -7,6 +7,7 @@
 
 ## Table of Contents
 * [Purpose](#purpose)
+* [Planning](#planning)
 * [Summary](#summary)
 * [Deployed Link](#deployed-link)
 * [Notes](#notes)
@@ -24,6 +25,11 @@ The purpose of this website is to avoid the problems associated with organizing 
  or even delete the potluck event). Web app assists in potluck planning collaboration. Users can also view the 
  location of the potluck by utilizing the Google Maps API (map satelite views are available as well as zoom in and 
  zoom out).  
+
+## Planning
++ [User Stories](./src/main/resources/Planning/UserStories.md)
++ [Wire Frame](./src/main/resources/Planning/WireFrame.md)
++ [Team Plan](./src/main/resources/Planning/TeamPlan.md)
 
 ## Summary
 + Create an account.
