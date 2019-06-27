@@ -27,7 +27,7 @@ public class Potluck {
 
     String code;
     //get lat and lng from api and store int the array
-    String[] mapResult;
+    double[] mapResult;
     @ManyToMany
     Set<PotluckUser> attendees;
 
@@ -74,11 +74,11 @@ public class Potluck {
     public void setPotluckItemList(List<PotluckItem> potluckItemList) {
         this.potluckItemList = potluckItemList;
     }
-    public String[] getMapResult(){
+    public double[] getMapResult(){
         return this.mapResult;
     }
 
-    public void setMapResult(String[] mapResult){
+    public void setMapResult(double[] mapResult){
         this.mapResult=mapResult;
     }
     public long getId() {

@@ -1,13 +1,47 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>PotLuck Detail</title>
     <link href="/styles.css" rel="stylesheet" />
+    <style>
+      #map {
+        height: 50%;
+        width:50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
 
 </head>
 <body>
+<script th:inline="javascript">
+   /*<![CDATA[*/
+      function initMap() {
+
+        var myLatLng = {lat: [[${newPotluck.mapResult[0]}]], lng: [[${newPotluck.mapResult[1]}]]};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: '[[${newPotluck.location}]]'
+        });
+      }
+      /*]]>*/
+    </script>
+<script async defer
+        th:src="'https://maps.googleapis.com/maps/api/js?key='+${@environment.getProperty('GEOCODE_API_KEY')}+'&callback=initMap'">
+</script>
 <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
 
 <div th:if="${notcreator==false}">
@@ -19,7 +53,7 @@
 </div>
 
 <h1 th:text="'Event Name: ' + ${newPotluck.eventname}"></h1>
-
+<div id="map"></div>
 <div th:if="${curruser==false}" >
 
     <p th:text="'Creator: ' + ${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
@@ -27,8 +61,8 @@
     <p th:text="'Date: ' + ${newPotluck.dateofPotluck}"></p>
 
     <p th:text="'Location: ' + ${newPotluck.location}"></p>
-  
-  <img th:src="'https://maps.googleapis.com/maps/api/staticmap?center='+${newPotluck.mapResult[0]}+'%2c%20'+${newPotluck.mapResult[1]}+'&zoom=13&size=600x300&maptype=roadmap&key='+${@environment.getProperty('GEOCODE_API_KEY')}" />
+
+  <!--<img th:src="'https://maps.googleapis.com/maps/api/staticmap?center='+${newPotluck.mapResult[0]}+'%2c%20'+${newPotluck.mapResult[1]}+'&zoom=13&size=600x300&maptype=roadmap&key='+${@environment.getProperty('GEOCODE_API_KEY')}" />-->
   
     <p>Additional Details: </p>
   

@@ -103,7 +103,7 @@ public class PotluckUserController {
         newP.details = details;
         newP.creator = creator;
         //get location
-      String[] location1 = getLocaionMap(location);
+      double[] location1 = getLocaionMap(location);
         //generate code
         String code = generateCode();
         newP.code = code;
@@ -143,8 +143,8 @@ public class PotluckUserController {
 
 
      //make google map api call store lag,lng to the result string array
-    private String[] getLocaionMap(String query) {
-        String[] results=new String[2];
+    private double[] getLocaionMap(String query) {
+       double[] results=new double[2];
         MyPojo location = new MyPojo();
         String apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+query+"&key="+apikey;
         RestTemplate restTemplate = new RestTemplate();
@@ -154,8 +154,8 @@ public class PotluckUserController {
         location = g.fromJson(result, MyPojo.class);
         System.out.println(location.getResults().get(0).getGeometry().getLocation().getLat());
         System.out.println(location.getResults().get(0).getGeometry().getLocation().getLng());
-        results[0]=String.valueOf(location.getResults().get(0).getGeometry().getLocation().getLat());
-        results[1]=String.valueOf(location.getResults().get(0).getGeometry().getLocation().getLng());
+        results[0]=location.getResults().get(0).getGeometry().getLocation().getLat();
+        results[1]=location.getResults().get(0).getGeometry().getLocation().getLng();
         return results;
     }
 
