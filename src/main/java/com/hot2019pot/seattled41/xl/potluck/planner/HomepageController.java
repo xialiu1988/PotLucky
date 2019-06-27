@@ -47,8 +47,6 @@ public class HomepageController {
         return "login";
     }
 
-<<<<<<< HEAD
-=======
 
     /**
      * Get mapping for website splash/landing page.
@@ -91,5 +89,4 @@ public class HomepageController {
         return "aboutus.html";
     }
 
->>>>>>> 2d8c698b21a0f079e051eee263671ea2ffbe76bb
 }
