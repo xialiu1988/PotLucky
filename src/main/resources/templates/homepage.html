@@ -19,33 +19,33 @@
 <h2 th:if="${user}">Welcome, [[${user.firstname}]]</h2>
 
 <form th:if="${user}" action="/search" method="get">
-    Potluck Code: <input type="text" name="code" />
+    <span>Potluck Code: </span><input type="text" name="code" />
     <input type="submit" value="Search" />
 </form>
 
 <div th:if="${user}">
 <div th:if="${mypotlucks}">
     <h3>My Potlucks</h3>
-<ul>
+<ol>
     <li th:each="p:${mypotlucks}">
         <a th:href="'/Potlucks/'+${p.id}">
-       <p th:text="${p.eventname}"></p>
-        <p th:text="${p.dateofPotluck}"></p>
+       <span th:text="${p.eventname}"></span>ç
         </a>
+        <span th:text="${p.dateofPotluck}"></span>
     </li>
-</ul>
+</ol>
 </div>
 
 <div th:if="${attendingpotlucks}">
     <h3>Attending Potlucks</h3>
-    <ul>
+    <ol>
         <li th:each="p:${attendingpotlucks}">
             <a th:href="'/Potlucks/'+${p.id}">
-                <p th:text="${p.eventname}"></p>
-                <p th:text="${p.dateofPotluck}"></p>
-            </a>
+                <span th:text="${p.eventname}"></span>
+            </a><span th:text="${p.dateofPotluck}"></span>
+
         </li>
-    </ul>
+    </ol>
 </div>
 
 </div>

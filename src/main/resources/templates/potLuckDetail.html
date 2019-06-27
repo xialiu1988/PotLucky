@@ -47,7 +47,7 @@
 
 <h3>List of Items for the event:</h3>
 <span th:if="${newPotluck.attendees.size() == 0 }">This list is empty.</span>
-<ul th:if="${newPotluck.potluckItemList.size() > 0 }">
+<ol th:if="${newPotluck.potluckItemList.size() > 0 }">
     <li th:each="item :${newPotluck.potluckItemList}">
         <p th:text="${item.user.username}+': '+${item.item}+${item.quantity}">
         <form th:if="${principal.name==item.user.username}" th:action="'/delete/potluckitems/'+${item.id}" method="POST">
@@ -55,7 +55,7 @@
         </form>
         </p>
     </li>
-</ul>
+</ol>
 
 
 <form th:if="${curruser!=null}" th:action="@{/addItem}" method="POST">
@@ -66,13 +66,13 @@
 
 <div th:if="${newPotluck.attendees.size()>0}">
     <h3>Here is the list of people planning to attend this event</h3>
-    <ul>
+    <ol>
         <li th:each="attendee : ${newPotluck.attendees}">
 
             <p th:text="${attendee.firstname}+' '+${attendee.lastname}"></p>
 
         </li>
-    </ul>
+    </ol>
 </div>
 <br/>
 <form th:if="${curruser==true}" th:action="'/delete/'+${newPotluck.id}" method="POST">

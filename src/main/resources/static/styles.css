@@ -4,15 +4,15 @@
 
 /*margins*/
 body {
-    margin: 12% 9% 10% 9%;
+    margin: 10% 9%;
 }
 
-.red {
-    color: red;
+header {
+    background-color: #a4e55e;
 }
 
 /*elements*/
-h1, a {
+h1, a, label {
     font-family: 'Mali', 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
 
 }
@@ -21,12 +21,14 @@ h2, h3, h4 {
     font-family: 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
 }
 
-p, span {
+p, span, .headerUsername {
     font-family: 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
 }
 
-li {
-
+img {
+    border-radius: 10px;
+    height: 250px;
+    width: 250px;
 }
 
 a {
@@ -64,6 +66,20 @@ input[type=submit]:hover {
     background: #92f4f4;
 }
 
+
+input[type=reset] {
+    width: 100px;
+    border-radius: 10px;
+    background-color: #a0efc6;
+    font-family: 'News Cycle', sans-serif, 'Neucha', 'Boogaloo', cursive, 'Comic Sans MS', arial, helvetica;
+    font-size: 16px;
+    transition: ease-in-out, width .35s ease-in-out;
+}
+
+input[type=reset]:hover {
+    background: #8cdef7;
+}
+
 .nav {
     color: navy;
 }
@@ -72,12 +88,11 @@ a {
     margin-right: 50px;
 }
 
-.bold {
-    color: #4286f4;
+nav a {
+    margin-right: 100px;
 }
 
-
-button {
+button, .aboutB {
     background: #cc2112;
     color: white;
     border-radius: 10px;
@@ -86,3 +101,36 @@ button {
     font-size: 16px;
     padding: 10px 5px;
 }
+
+button:hover, .aboutB {
+    background: #ed5f53;
+    color: black;
+}
+
+.red {
+    color: red;
+}
+
+.bold {
+    color: #4286f4;
+}
+
+/* username in header, fragment - src: https://rainbowcoding.com/2011/12/02/how-to-create-rainbow-text-in-html-css-javascript/*/
+header {
+    font-size: 40px;
+     background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+     background-image: gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+     color:transparent;
+     -webkit-background-clip: text;
+     background-clip: text;
+     font-weight: bolder;
+}
+
+#homeImg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10%;
+  border: 5px solid blue;
+}
+
