@@ -1,11 +1,45 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>PotLuck Detail</title>
+    <style>
+      #map {
+        height: 50%;
+        width:50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
 </head>
 <body>
+<script th:inline="javascript">
+   /*<![CDATA[*/
+      function initMap() {
+
+        var myLatLng = {lat: [[${newPotluck.mapResult[0]}]], lng: [[${newPotluck.mapResult[1]}]]};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: '[[${newPotluck.location}]]'
+        });
+      }
+      /*]]>*/
+    </script>
+<script async defer
+        th:src="'https://maps.googleapis.com/maps/api/js?key='+${@environment.getProperty('GEOCODE_API_KEY')}+'&callback=initMap'">
+</script>
 <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
 
 <div th:if="${notcreator==false}">
@@ -20,7 +54,8 @@
 Creator: <p th:text="${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
 Date: <p th:text="${newPotluck.dateofPotluck}"></p>
 Location: <p th:text="${newPotluck.location}"></p>
-<img th:src="'https://maps.googleapis.com/maps/api/staticmap?center='+${newPotluck.mapResult[0]}+'%2c%20'+${newPotluck.mapResult[1]}+'&zoom=13&size=600x300&maptype=roadmap&key='+${@environment.getProperty('GEOCODE_API_KEY')}" />
+<div id="map"></div>
+<!--<img th:src="'https://maps.googleapis.com/maps/api/staticmap?center='+${#strings.toString(newPotluck.mapResult[0])}+'%2c%20'+${#strings.toString(newPotluck.mapResult[1])}+'&zoom=13&size=600x300&maptype=roadmap&key='+${@environment.getProperty('GEOCODE_API_KEY')}" />-->
 
 Additional Details: <p th:if="${curruser==false}" th:text="${newPotluck.details != null} ? ${newPotluck.details} : none"></p>
     <form th:if="${curruser==true}" action="/updateDetails" method="post">
