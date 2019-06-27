@@ -7,6 +7,10 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Potluck object.
+ * Event.
+ */
 @Entity
 public class Potluck {
     @Id
@@ -30,9 +34,21 @@ public class Potluck {
     @OneToMany(fetch=FetchType.EAGER, mappedBy="potluck")
      List<PotluckItem> potluckItemList;
 
-    public Potluck() {
-    }
+    /**
+     * Default constructor
+     */
+    public Potluck() {}
 
+    /**
+     * Constructor with params
+     * @param eventname String, Potluck name
+     * @param dateofPotluck Date, Potluck date
+     * @param location String, Potluck location
+     * @param details String, Potluck additional details
+     * @param creator PotluckUser, user who created Potluck
+     * @param code String, code to share with others
+     *             so other users could see and add to your Potluck
+     */
     public Potluck(String eventname, Date dateofPotluck, String location, String details, PotluckUser creator, String code) {
         this.eventname = eventname;
         this.dateofPotluck = dateofPotluck;
@@ -41,6 +57,8 @@ public class Potluck {
         this.creator=creator;
         this.code=code;
     }
+
+    /** Getter sand Setters **/
     public String getCode(){return code;}
 
     public void setCode(String code){this.code=code;}

@@ -1,15 +1,15 @@
 package com.hot2019pot.seattled41.xl.potluck.planner;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
+/**
+ * PotluckUser object - user.
+ */
 @Entity
 public class PotluckUser implements UserDetails {
     @Id
@@ -27,12 +27,19 @@ public class PotluckUser implements UserDetails {
 
     @OneToMany(mappedBy="creator")
     Set<Potluck> createPotlucks;
-//
-//    @OneToMany(mappedBy="user")
-//    List<PotluckItem> potluckItems;
 
-    //constructor
+    /**
+     * Default constructor
+     */
     public PotluckUser(){}
+
+    /**
+     * Constructor with params
+     * @param firstname String, user first name
+     * @param lastname String, user last name
+     * @param username String, user username - must be unique
+     * @param password String, user password
+     */
     public PotluckUser(String firstname, String lastname, String username, String password){
         this.firstname=firstname;
         this.lastname=lastname;
@@ -41,12 +48,7 @@ public class PotluckUser implements UserDetails {
     }
 
 
-//    public List<PotluckItem> getPotluckItems(){
-//        return this.potluckItems;
-//    }
-//    public void setPotluckItems(List<PotluckItem> potluckItems){
-//        this.potluckItems=potluckItems;
-//    }
+    /* Getters and Setters */
     public long getId() {
         return id;
     }
