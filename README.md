@@ -12,6 +12,7 @@
 * [Deployed Link](#deployed-link)
 * [Notes](#notes)
 * [Clone and Run Locally](#directions-to-clone-and-run-locally)
+* [Routes](#routes)
 * [Screen Shots](#screen-shots)
 * [Versions](#versions)
 * [Creators](#creators)
@@ -86,6 +87,16 @@ Environment variables: field.
 + The application is running on port 5000 by default (in the application.properties file), so 
 in your browser type:
 `` http://localhost:5000 ``
+
+## Routes
++ ``/home``
++ ``/signup``
++ ``/login``
++ ``/logout_complete``
++ ``/aboutus``
++ ``/myprofile``
+
+
 
 ## Screen Shots 
 + Home Page
