@@ -7,16 +7,22 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
+
 import java.sql.Date;
+
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@ContextConfiguration
+@WebAppConfiguration
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,11 +32,21 @@ public class PotluckPlannerApplicationTests {
 	private MockMvc mockMvc;
 
 	// Helper Methods
+
+	// Create a Helper Function to check if TestUser is in database and if not add it.
+
+	// Sets a test user for authentication testing and logged in routes
+	public static RequestPostProcessor testUser(){
+		return user("TestUser").password("pass");
+	}
+
+	// Creates a test user instance for unit testing.
 	public PotluckUser createTestUser(){
 		PotluckUser testUser = new PotluckUser("Test", "User", "testuser", "testuser");
 		return testUser;
 	}
 
+	// Creates a potluck for unit testing.
 	public Potluck createTestPotluck(PotluckUser testUser){
 		Date newDate = new Date(01-01-2020);
 		Potluck testPotluck = new Potluck("TestEvent", newDate, "TestLocation",
@@ -38,108 +54,147 @@ public class PotluckPlannerApplicationTests {
 		return testPotluck;
 	}
 
+	// Creates an item for a potluck for unit testing.
 	public PotluckItem createTestPotLuckItem(PotluckUser testUser,Potluck testPotluck){
 		PotluckItem testPotluckItem = new PotluckItem("testItem", 5, testPotluck, testUser);
 		return testPotluckItem;
 	}
 
-	// Route Testing
-	@Test
-	public void testSlashNotSignedInRoutePass() throws Exception {
-		this.mockMvc.perform(get("/")).andExpect(status().isOk());
-	}
+	//********** Route Testing Not Signed In **********\\
 
 	@Test
-	public void testSlashSignedInRoutePass() throws Exception {
-		PotluckUser testUser = createTestUser();
-		this.mockMvc.perform(get("/")).andExpect(status().isOk());
-	}
+	public void testMyProfileNotSignedIn() throws Exception{
+		// Expect redirect to login page
+		this.mockMvc.perform(get("/myprofile")).andExpect(status().is3xxRedirection());	}
 
-//	@Test
-//	public void testHomeNotSignedInRoutePass() throws Exception {
-//		this.mockMvc.perform(get("/home")).andExpect(status().isOk());
-//	}
-
-//	@Test
-//	public void testHomeSignedInRoutePass() throws Exception {
-//		PotluckUser testUser = createTestUser();
-//		this.mockMvc.perform(get("/home")).andExpect(status().isOk());
-//	}
 
 	@Test
-	public void testLoginRoutePass() throws Exception {
+	public void testLoginNotSignedIn() throws Exception {
 		this.mockMvc.perform(get("/login")).andExpect(status().isOk());
 	}
 
 	@Test
-	public void testSearchNotSignedInRoutePass() throws Exception {
-		// Expect redirect to login page.
+	public void testHomeNotSignedIn() throws Exception {
+		this.mockMvc.perform(get("/")).andExpect(status().isOk());
+	}
+
+
+	@Test
+	public void testLogoutCompletedNotSignedIn() throws Exception{
+		// Expect redirect to login page
+		this.mockMvc.perform(get("/logout_complete")).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testAboutUsNotSignedIn() throws Exception{
+		this.mockMvc.perform(get("/aboutus")).andExpect(status().isOk());
+	}
+
+	@Test
+	public void testPotluckIdNotSignedIn() throws Exception{
+		// Expect redirect to login page
+		this.mockMvc.perform(get("/potlucks/1")).andExpect(status().is3xxRedirection());
+	}
+
+	@Test
+	public void testSearchNotSignedIn() throws Exception {
+		// Expect redirect to login page
 		this.mockMvc.perform(get("/search")).andExpect(status().is3xxRedirection());
 	}
 
 	@Test
+	public void testPotluckDetailNotSignedIn() throws Exception {
+		// Expect redirect to login page
+		this.mockMvc.perform(get("/addItem")).andExpect(status().is3xxRedirection());
+	}
+
+	@Test
+	public void testPotluckNotSignedIn() throws Exception {
+		// Expect redirect to login page
+		this.mockMvc.perform(get("/Potluck")).andExpect(status().is3xxRedirection());
+	}
+
+	@Test
+	public void testAddPotluckNotSignedIn() throws Exception {
+		// Expect redirect to login page
+		this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
+	}
+
+	@Test
+	public void testDeletePotluckItemNotSignedIn() throws Exception {
+		// Expect redirect to login page
+		this.mockMvc.perform(get("/delete/potluckitems/1")).andExpect(status().is3xxRedirection());
+	}
+
+	@Test
+	public void testSignupNotSignedIn() throws Exception {
+		// Expect redirect to login page
+		this.mockMvc.perform(get("/signup")).andExpect(status().isOk());
+	}
+
+
+	//********** Route Testing Signed In **********\\
+	@Test
+	@WithMockUser
+	public void testMyProfileSignedIn() throws Exception {
+		mockMvc.perform(get("/myprofile").with(testUser())).andExpect(status().isOk());
+	}
+
+	@WithMockUser
+	@Test
+	public void testLoginSignedIn() throws Exception {
+		this.mockMvc.perform(get("/login").with(testUser())).andExpect(status().isOk());
+	}
+
+	@WithMockUser
+	@Test
+	public void testHomeSignedIn() throws Exception {
+		this.mockMvc.perform(get("/").with(testUser())).andExpect(status().isOk());
+	}
+
+	@WithMockUser
+	@Test
+	public void testLogoutCompletedSignedIn() throws  Exception{
+		this.mockMvc.perform(get("/logout_complete").with(testUser())).andExpect(status().isOk());
+	}
+
+	@WithMockUser
+	@Test
+	public void testAboutUsSignedIn() throws Exception{
+		this.mockMvc.perform(get("/aboutus").with(testUser())).andExpect(status().isOk());
+	}
+
+	@WithMockUser
+	@Test
+	public void testPotluckIdSignedIn() throws Exception{
+		this.mockMvc.perform(get("/Potlucks/3").with(testUser())).andExpect(status().isOk());
+	}
+
+	@WithMockUser
+	@Test
+	public void testSignupSIgnedIn() throws Exception {
+		this.mockMvc.perform(get("/signup").with(testUser())).andExpect(status().isOk());
+	}
+
+	@WithMockUser
+	@Test
+	public void testLogoutRoutePass() throws Exception {
+		this.mockMvc.perform(get("/logout").with(testUser())).andExpect(status().is(302));
+	}
+
+	@Test
 	public void testSearchSignedInRoutePass() throws Exception {
-		// Need to add test for this
-		// this.mockMvc.perform(get("/search")).andExpect(status().is3xxRedirection());
 		PotluckUser testUser = createTestUser();
 		Potluck testPotluck = createTestPotluck(testUser);
 		Date testDate = new Date(01-01-2020);
 	}
 
-	@Test
-	public void testSignupRoutePass() throws Exception {
-		this.mockMvc.perform(get("/signup")).andExpect(status().isOk());
-	}
-
-	@Test
-	public void testSignupRouteRedirectPass() throws Exception {
-		// Need to add testing here
-		// this.mockMvc.perform(get("/signup")).andExpect(status().isOk());
-	}
-
-	@Test
-	public void testLogoutRoutePass() throws Exception {
-		this.mockMvc.perform(get("/logout")).andExpect(status().is3xxRedirection());
-	}
-
-	@Test
-	public void testLogoutRouteRedirectPass() throws Exception {
-		// Need to add testing here
-		// this.mockMvc.perform(get("/logout")).andExpect(status().isOk());
-	}
-
-	@Test
-	public void testPotluckNotSignedInRoutePass() throws Exception {
-		this.mockMvc.perform(get("/Potluck")).andExpect(status().is3xxRedirection());
-	}
-
-	@Test
-	@WithMockUser
-	public void testPotluckSignedInRoutePass() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/Potluck")
-				.accept(MediaType.ALL));
-//				.andExpect(status().isOk());
-
-//		this.mockMvc.perform(get("/Potluck")).andExpect(status().isOk());
-
-	}
-
-	@Test
-	public void testAddPotluckNotSignedInRoutePass() throws Exception {
-		this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
-	}
+	//********** Unit Testing **********\\
 
 	@Test
 	public void testAddPotluckSignedInRoutePass() throws Exception {
-		// Need to add tests
-		// this.mockMvc.perform(get("/addItem")).andExpect(status().is3xxRedirection());
 		PotluckUser testUser = createTestUser();
 		Potluck testPotluck = createTestPotluck(testUser);
-	}
-
-	@Test
-	public void testPotluckDetailNotSignedInRoutePass() throws Exception {
-		this.mockMvc.perform(get("/addItem")).andExpect(status().is3xxRedirection());
 	}
 
 	@Test
@@ -151,49 +206,8 @@ public class PotluckPlannerApplicationTests {
 		Potluck testPotluck = createTestPotluck(testUser);
 	}
 
-	@Test
-	public void testPotluckAddItemNotSignedInRoutePass() throws Exception {
-		this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
-	}
 
-	@Test
-	public void testPotluckDetailSignedInRoutePass() throws Exception {
-		// signing user
-		// create event
-		// this.mockMvc.perform(get("/Potluck/add")).andExpect(status().is3xxRedirection());
-		PotluckUser testUser = createTestUser();
-
-	}
-
-	@Test
-	public void testDatabase() throws Exception{
-		// Test database exists
-		// test tables exist
-		// test user data
-		// test potluck data
-	}
-
-	@Test
-	public void testLoginInvalidUsernamePassword() throws Exception{
-		// Test login with invalid username
-		// test login with invalid password
-	}
-
-	@Test
-	public void testAddInvalidPotluckCode() throws Exception{
-		// Test try to add invalid potluck code
-	}
-
-	@Test
-	public void testAddUserAlreadyExists() throws Exception{
-		// Test adding a user that already exists
-	}
-
-	@Test
-	public void testAddUserNoPassword() throws Exception{
-
-	}
-
+	//********** Unit Tests **********\\
 	@Test
 	public void testCreateUser(){
 		PotluckUser testUser = new PotluckUser();
@@ -206,6 +220,16 @@ public class PotluckPlannerApplicationTests {
 		assertEquals("User First Name should be Test", "Test", testUser.firstname);
 		assertEquals("User Last Name should be User", "User", testUser.lastname);
 		assertEquals("User name should be testuser", "testuser", testUser.username);
+		assertEquals("User password should be testuser", "testuser", testUser.password);
+	}
+
+	@Test
+	public void testUserConstructor(){
+		PotluckUser testUser = createTestUser();
+		assertEquals("User First Name should be Test", "Test", testUser.getFirstname());
+		assertEquals("User Last Name should be User", "User", testUser.getLastname());
+		assertEquals("User name should be testuser", "testuser", testUser.getUsername());
+		assertEquals("User password should be testuser", "testuser", testUser.getPassword());
 	}
 
 	@Test
@@ -224,6 +248,15 @@ public class PotluckPlannerApplicationTests {
 	}
 
 	@Test
+	public void testPotluckConstructor(){
+		PotluckUser testUser = createTestUser();
+		Potluck testPotluck = createTestPotluck(testUser);
+		Date testDate = new Date(01-01-2020);
+		assertEquals("Date will be 2020-01-01", testDate, testPotluck.getDateofPotluck());
+		assertEquals("Code should be abc12", "TestCode", testPotluck.getCode());
+	}
+
+	@Test
 	public void testCreatePotluckItem(){
 		PotluckItem testItem = new PotluckItem();
 		assertNotNull(testItem);
@@ -237,26 +270,13 @@ public class PotluckPlannerApplicationTests {
 		assertEquals("Item should be TestItem", "testItem", testPotluckItem.item);
 	}
 
+
+	// Full Path Test
 	@Test
 	public void testFullPath() throws Exception {
 		PotluckUser testUser = createTestUser();
 		Potluck testPotluck = createTestPotluck(testUser);
 		PotluckItem testPotluckItem = createTestPotLuckItem(testUser, testPotluck);
-//		this.mockMvc.perform(get("/")).andExpect(status().isOk());
-
-		// home page
-		// /signup
-		// username
-		// firstname
-		// profile
-		// no potluck
-		// add potluck
-		// date
-		// code
-		// test code
-
-		// new user add
-		// show user on creator page
-		// add item
 	}
+
 }
