@@ -88,15 +88,36 @@ Environment variables: field.
 in your browser type:
 `` http://localhost:5000 ``
 
-## Routes
-+ ``/home``
-+ ``/signup``
-+ ``/login``
-+ ``/logout_complete``
-+ ``/aboutus``
-+ ``/myprofile``
-
-
+## Routes/API
++ @GetMapping("/home")
+    + The home page for the site
++ @GetMapping("/")
+    + Redirect the user to the home page
++ @GetMapping("/signup")
+    + The page where a user can register for the Potlucky websited
++ @GetMapping("/login")
+    + The page to login once registered
++ @GetMapping("/logout_complete")
+    + The page where user are redirected once successfully logged out
++ @GetMapping("/aboutus")
+    + T page dedicated to the developers of Potlucky
++ @GetMapping("/myprofile")
+    + The page that shows all of the potlucks the logged in user has created and attending. Also the user can search for a potluck using the share code
++ @GetMapping("/Potluck/add")
+    + The page where the user can create a potluck
++ @GetMapping("/search")
+    + The user can search with the share code and be redirected to a potluck details page
++ @PostMapping("/Potlucks/{id}")
+    + Get all the potlucks for a user and display on their profile page
++ @PostMapping("/addItem")
+    + Adding items to a potluck
++ @PostMapping("/delete/{id}")
+    + Deleting a potluck
++ @PostMapping("/delete/potluckitems/{id}")
+    + Delete the items from a potluck
++ @PostMapping("/updateDetails")
+    + Update the details of a potluck
+    
 
 ## Screen Shots 
 + Home Page
