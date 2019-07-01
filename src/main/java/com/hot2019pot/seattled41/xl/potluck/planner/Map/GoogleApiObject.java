@@ -2,7 +2,7 @@ package com.hot2019pot.seattled41.xl.potluck.planner.Map;
 
 import java.util.List;
 
-public class MyPojo {
+public class GoogleApiObject {
     private List<Results> results;
 
     private String status;

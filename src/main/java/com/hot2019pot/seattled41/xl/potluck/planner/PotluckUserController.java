@@ -1,9 +1,6 @@
 package com.hot2019pot.seattled41.xl.potluck.planner;
 
-import com.google.gson.Gson;
-import com.hot2019pot.seattled41.xl.potluck.planner.Map.MyPojo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,12 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
 
 
 import java.security.Principal;
-import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -64,21 +59,28 @@ public class PotluckUserController {
         return new RedirectView("/myprofile");
     }
 
+
     /**
-     * Get mapping for user to route to
-     * page to add a new Potluck.
-     * @param m Model, hive/cache for front-facing
-     * @param p Principal, logged-in user object
-     * @return String, page to retrieve
+     * Landing page for logged-in user personal splash page.
+     * @param p Principal, logged-in user
+     * @param m Model, cache/hive logged-in user
+     * @return String, html page to retrieve
      */
-    @GetMapping("/Potluck/add")
-    public String createPotluck(Model m, Principal p) {
-        m.addAttribute("principal", p);
-        return "createPotluck";
+    @GetMapping("/myprofile")
+    public String getRoot(Principal p, Model m ){
+        if(p!=null){
+            if(potLuckUserRepository.findByUsername(p.getName()).createPotlucks.size()>0){
+                m.addAttribute("mypotlucks",potLuckUserRepository.findByUsername(p.getName()).createPotlucks);
+            }
+
+            if(potLuckUserRepository.findByUsername(p.getName()).attendingPotlucks.size()>0){
+                m.addAttribute("attendingpotlucks",potLuckUserRepository.findByUsername(p.getName()).attendingPotlucks);
+            }
+            m.addAttribute("principal", p);
+            m.addAttribute("user",potLuckUserRepository.findByUsername(p.getName()));
+        }
+        return "homepage";
     }
-
-
-
 
 
 

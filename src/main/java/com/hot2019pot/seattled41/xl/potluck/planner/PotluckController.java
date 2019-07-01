@@ -1,7 +1,7 @@
 package com.hot2019pot.seattled41.xl.potluck.planner;
 
 import com.google.gson.Gson;
-import com.hot2019pot.seattled41.xl.potluck.planner.Map.MyPojo;
+import com.hot2019pot.seattled41.xl.potluck.planner.Map.GoogleApiObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -33,6 +33,20 @@ public class PotluckController {
 
     private Potluck potluck;
     private PotluckUser currentUser;
+
+
+    /**
+     * Get mapping for user to route to
+     * page to add a new Potluck.
+     * @param m Model, hive/cache for front-facing
+     * @param p Principal, logged-in user object
+     * @return String, page to retrieve
+     */
+    @GetMapping("/Potluck/add")
+    public String createPotluck(Model m, Principal p) {
+        m.addAttribute("principal", p);
+        return "createPotluck";
+    }
 
     /**
      * Get route for one Potluck object.
@@ -172,7 +186,7 @@ public class PotluckController {
     public RedirectView updatePotluckDetails(String details, String location, Date dateofPotluck) {
 
         //get location
-        double[] location1 = getLocaionMap(location);
+        double[] location1 = getLocationMap(location);
         potluck.setMapResult(location1);
         //reset details and save to db
         potluck.setLocation(location);
@@ -181,9 +195,6 @@ public class PotluckController {
         potLuckRepository.save(potluck);
         return new RedirectView("/Potlucks/" + potluck.id);
     }
-
-
-
 
     /**
      * Post mapping to create new Potluck object
@@ -208,7 +219,7 @@ public class PotluckController {
         newP.details = details;
         newP.creator = creator;
         //get location
-        double[] location1 = getLocaionMap(location);
+        double[] location1 = getLocationMap(location);
         //generate code
         String code = generateCode();
         newP.code = code;
@@ -248,17 +259,15 @@ public class PotluckController {
 
 
     //make google map api call store lag,lng to the result string array
-    private double[] getLocaionMap(String query) {
+    private double[] getLocationMap(String query) {
         double[] results=new double[2];
-        MyPojo location = new MyPojo();
         String apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="+query+"&key="+apikey;
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(apiUrl, String.class);
         System.out.println(result);
         Gson g = new Gson();
-        location = g.fromJson(result, MyPojo.class);
-        System.out.println(location.getResults().get(0).getGeometry().getLocation().getLat());
-        System.out.println(location.getResults().get(0).getGeometry().getLocation().getLng());
+        GoogleApiObject location = g.fromJson(result, GoogleApiObject.class);
+
         results[0]=location.getResults().get(0).getGeometry().getLocation().getLat();
         results[1]=location.getResults().get(0).getGeometry().getLocation().getLng();
         return results;

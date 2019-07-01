@@ -16,27 +16,6 @@ public class HomepageController {
     @Autowired
     PotluckUserRepository potLuckUserRepository;
 
-    /**
-     * Landing page for logged-in user personal splash page.
-     * @param p Principal, logged-in user
-     * @param m Model, cache/hive logged-in user
-     * @return String, html page to retrieve
-     */
-    @GetMapping("/myprofile")
-    public String getRoot(Principal p, Model m ){
-        if(p!=null){
-            if(potLuckUserRepository.findByUsername(p.getName()).createPotlucks.size()>0){
-                m.addAttribute("mypotlucks",potLuckUserRepository.findByUsername(p.getName()).createPotlucks);
-            }
-
-            if(potLuckUserRepository.findByUsername(p.getName()).attendingPotlucks.size()>0){
-                m.addAttribute("attendingpotlucks",potLuckUserRepository.findByUsername(p.getName()).attendingPotlucks);
-            }
-            m.addAttribute("principal", p);
-            m.addAttribute("user",potLuckUserRepository.findByUsername(p.getName()));
-        }
-      return "homepage";
-    }
 
     /**
      * Login page.

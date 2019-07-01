@@ -133,12 +133,13 @@ public class PotluckPlannerApplicationTests {
 	}
 
 
-	//********** Route Testing Signed In **********\\
-	@Test
-	@WithMockUser
-	public void testMyProfileSignedIn() throws Exception {
-		mockMvc.perform(get("/myprofile").with(testUser())).andExpect(status().isOk());
-	}
+//	//********** Route Testing Signed In **********\\
+//
+//	@WithMockUser
+//	@Test
+//	public void testMyProfileSignedIn() throws Exception {
+//		this.mockMvc.perform(get("/myprofile").with(testUser())).andExpect(status().isOk());
+//	}
 
 	@WithMockUser
 	@Test
