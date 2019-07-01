@@ -222,7 +222,7 @@ public class PotluckController {
         return "redirect:/Potlucks/" + find.id;
     }
 
-
+    // Should probably make unique in the database for the share code
     private String generateCode() {
 
         // chose a Character random from this String
@@ -246,7 +246,7 @@ public class PotluckController {
         return sb.toString();
     }
 
-
+    // Get rid of the Sout
     //make google map api call store lag,lng to the result string array
     private double[] getLocaionMap(String query) {
         double[] results=new double[2];
