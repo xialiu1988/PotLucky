@@ -1,9 +1,5 @@
 # Created by https://www.gitignore.io/api/java,macos,android,androidstudio
 
-
-node_modules
-
-
 ### Android ###
 # Built application files
 *.apk
@@ -32,6 +28,14 @@ proguard/
 
 # Log Files
 *.log
+
+*.idea
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
 # Android Studio Navigation editor temp files
 .navigation/
@@ -209,6 +213,3 @@ Temporary Items
 # IDE
 **/.vscode/
 **/.settings/
-
-# End of https://www.gitignore.io/api/java,macos,android,androidstudio
-**markdown-navigator.xml

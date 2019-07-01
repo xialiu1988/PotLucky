@@ -2,20 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create new Potluck</title>
+    <title>Create a new Potluck</title>
+    <link href="/styles.css" rel="stylesheet" />
+    <link href="/generalCss.css" rel="stylesheet" />
+
 </head>
 <body>
-  <h1>Create new PotLuck</h1>
-<form  action="/Potluck"   method="post">
+<div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
+<section class="margin">
 
-        Potluck Name: <input type="text" name="eventname" />
-        dateofPotluck: <input type="date" name="dateofPotluck" />
-        Location: <input type="text" name="location" />
+    <h1>Create a New PotLuck Event!</h1>
 
-    <!--<button type="submit">Generation code</button>-->
+    <form  action="/Potluck"   method="post">
+
+        <label>Potluck Name: <input type="text" placeholder="office party" name="eventname" required /></label><br/>
+        <label>Date of the Potluck: <input type="date" name="dateofPotluck" required /></label><br/>
+        <label>Location: <input type="text" name="location" placeholder="Seattle" required /></label><br/>
+        <label>Additional Details: <br/><textarea rows="5" cols="70" name="details" ></textarea></label>
+        <br/>
         <input type="submit" />
 
-</form>
-
+    </form>
+</section>
+  <div th:replace="fragments/footer :: foot"></div>
 </body>
 </html>

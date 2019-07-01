@@ -1,0 +1,46 @@
+#moveup {
+  width: 75%;
+  margin: 0px auto 20px auto;
+}
+
+section img {
+  float: left;
+  margin-right: 30px;
+  width: 200px;
+  height: 200px;
+  border-radius: 20%;
+}
+
+section h2 {
+  font-size: 20px;
+  margin: 10px 0px;
+  color: #16191f;
+}
+
+section p {
+  line-height: 20px;
+  font-style: italic;
+  height: 125px;
+  overflow: scroll;
+  margin-bottom: 10px;
+  color: #16191f;
+}
+
+.aboutB {
+  text-align: right;
+  background: blue;
+  /*color: white;*/
+  border-radius: 2px;
+  border: none;
+  font-size: 15px;
+  padding: 8px 40px;
+  cursor: pointer;
+  transition: hover 350ms;
+  margin-right: 20px;
+  clear: both;
+}
+
+.aboutB:hover {
+  background: rgba(209, 50, 18, 1.0);
+  transition: all 350ms;
+}

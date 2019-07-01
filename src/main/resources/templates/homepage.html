@@ -3,43 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link href="/styles.css" rel="stylesheet" />
+    <link href="/generalCss.css" rel="stylesheet" />
+
 </head>
 <body>
-<h1>Welcome</h1>
-<nav th:replace="fragments/nav :: nav"></nav>
-<h2 th:if="${user}">Welcome, [[${user.firstname}]]</h2>
 
-<form th:if="${user}" action="/search" method="get">
-    Potluck Code: <input type="text" name="code" />
-    <button type="submit">Search</button>
-</form>
-
-<div th:if="${user}">
-<div th:if="${mypotlucks}">
-    <h3>My Potlucks</h3>
-<ul>
-    <li th:each="p:${mypotlucks}">
-        <a th:href="'/Potlucks/'+${p.id}">
-       <p th:text="${p.eventname}"></p>
-        <p th:text="${p.dateofPotluck}"></p>
-        </a>
-    </li>
-</ul>
+<div th:if="${principal == null}">
+    <div th:replace="fragments/header :: header"></div>
+</div>
+<div th:if="${principal != null}">
+    <div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
 </div>
 
-<div th:if="${attendingpotlucks}">
-    <h3>Attending Potlucks</h3>
-    <ul>
-        <li th:each="p:${attendingpotlucks}">
+<section class="margin">
+
+    <h1 th:if="${user}">Welcome, [[${user.firstname}]]</h1>
+
+    <form th:if="${user}" action="/search" method="get">
+        <label>Potluck Code: <input type="text" name="code" required/></label>
+        <input type="submit" value="Search" />
+    </form>
+
+    <div th:if="${user}">
+    <div th:if="${mypotlucks}">
+        <h3>My Potlucks</h3>
+    <ol>
+        <li th:each="p:${mypotlucks}">
             <a th:href="'/Potlucks/'+${p.id}">
-                <p th:text="${p.eventname}"></p>
-                <p th:text="${p.dateofPotluck}"></p>
+           <span th:text="${p.eventname}"></span>ç
             </a>
+            <span th:text="${p.dateofPotluck}"></span>
         </li>
-    </ul>
-</div>
+    </ol>
+    </div>
 
-</div>
+    <div th:if="${attendingpotlucks}">
+        <h3>Attending Potlucks</h3>
+        <ol>
+            <li th:each="p:${attendingpotlucks}">
+                <a th:href="'/Potlucks/'+${p.id}">
+                    <span th:text="${p.eventname}"></span>
+                </a><span th:text="${p.dateofPotluck}"></span>
 
+            </li>
+        </ol>
+    </div>
+
+    </div>
+</section>
+<div th:replace="fragments/footer :: foot"></div>
 </body>
 </html>

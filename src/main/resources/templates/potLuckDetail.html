@@ -1,47 +1,133 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>PotLuck Detail</title>
+    <link href="/styles.css" rel="stylesheet" />
+
+    <link href="/generalCss.css" rel="stylesheet" />
+
+    <style>
+      #map {
+        height: 50%;
+        width:50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+
 </head>
 <body>
+<script th:inline="javascript">
+   /*<![CDATA[*/
+      function initMap() {
 
-<div th:if="${notcreator==false}">
-    <p>Do you want to to go</p>
-    <form th:action="'/Potlucks/'+${newPotluck.id}" method="post">
-        <input type='submit' name='action' value='yes' />
-        <input type='submit' name='action' value='no' />
+        var myLatLng = {lat: [[${newPotluck.mapResult[0]}]], lng: [[${newPotluck.mapResult[1]}]]};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: '[[${newPotluck.location}]]'
+        });
+      }
+      /*]]>*/
+    </script>
+<script async defer
+        th:src="'https://maps.googleapis.com/maps/api/js?key='+${@environment.getProperty('GEOCODE_API_KEY')}+'&callback=initMap'">
+</script>
+<div th:replace="fragments/loggedInHeader :: header(principal=${principal})"></div>
+<section class="margin">
+    <div th:if="${notcreator==false}">
+        <p>Do you want to to go</p>
+        <form th:action="'/Potlucks/'+${newPotluck.id}" method="post">
+            <input type='submit' name='action' value='yes' />
+            <input type='submit' name='action' value='no' />
+        </form>
+    </div>
+
+    <h1 th:text="'Event Name: ' + ${newPotluck.eventname}"></h1>
+    <div id="map"></div>
+
+    <div th:if="${curruser==false}" >
+
+        <p th:text="'Creator: ' + ${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
+
+
+        <p th:text="'Date: ' + ${newPotluck.dateofPotluck}"></p>
+
+
+    <p th:text="'Location: ' + ${newPotluck.location}"></p>
+  
+    <p>Additional Details: </p>
+  
+    <p th:text="${newPotluck.details != null} ? ${newPotluck.details} : none"></p>
+
+
+    </div>
+
+    <form th:if="${curruser==true}" action="/updateDetails" method="post">
+    <p class="bold">Date:
+        <input type="date" th:value="${newPotluck.dateofPotluck}" name="dateofPotluck"/>
+
+    <p class="bold">Location:
+        <input th:value="${newPotluck.location}" name="location"/>
+    </p>
+    <p class="bold">Additional Details:</p>
+        <textarea rows="5" cols="60" th:text="${newPotluck.details}" name="details"></textarea>
+    <p class="bold" th:text="${'ShareCode: ' + newPotluck.code}"></p>
+        <input type="submit" name="update" value="Update Details" />
+
     </form>
-</div>
+    <br/>
+    <hr/>
 
-<h1 th:text="${newPotluck.eventname}"></h1>
-Creator: <p th:text="${newPotluck.creator.firstname}+' ' +${newPotluck.creator.lastname}"></p>
-Date: <p th:text="${newPotluck.dateofPotluck}"></p>
-Location: <p th:text="${newPotluck.location}"></p>
-Share Code:<p th:text="${newPotluck.code}"></p>
-
-Lists of Stuff for the events:
-
-Utensil?<input type="checkbox" name="isUtensil" />
-Napkin?<input type="checkbox" name="isNapkin" />
-Dessert?<input type="checkbox" name="isDessert" />
-Salad?<input type="checkbox" name="isSalad" />
-Pork?<input type="checkbox" name="isPork" />
-Beef?<input type="checkbox" name="isBeef" />
-Seafood?<input type="checkbox" name="isSeafood" />
-Soup?<input type="checkbox" name="isSoup" />
-Lique?<input type="checkbox" name="isLique" />
-Soda/water?<input type="checkbox" name="isSodaWater" />
-
-<div th:if="${newPotluck.attendees.size()>0}">
-    <h3>Here are the list of people planning to attend this event</h3>
-    <ul>
-        <li th:each="attendee : ${newPotluck.attendees}">
-
-            <p th:text="${attendee.firstname}+' '+${attendee.lastname}"></p>
+    <h3>List of Items for the event:</h3>
+    <span th:if="${newPotluck.attendees.size() == 0 }">This list is empty.</span>
+    <ol th:if="${newPotluck.potluckItemList.size() > 0 }">
+        <li th:each="item :${newPotluck.potluckItemList}">
+            <p th:text="${item.user.firstname}+' '+${item.user.lastname}+': '+${item.item}+', Quantity:  '+${item.quantity}">
+            <form th:if="${principal.name==item.user.username}" th:action="'/delete/potluckitems/'+${item.id}" method="POST">
+                <input type="submit" value="Delete This Item" />
+            </form>
+            </p>
         </li>
-    </ul>
-</div>
+    </ol>
 
+
+    <form th:if="${curruser!=null}" th:action="@{/addItem}" method="POST">
+        <label>Item: <input type="text" name="itemName" /> Quantity: <input type="number" name="quantity" min="1"/></label>
+        <input type="submit" value="add" />
+    </form>
+
+
+    <div th:if="${newPotluck.attendees.size()>0}">
+        <h3>Here is the list of people planning to attend this event</h3>
+        <ol>
+            <li th:each="attendee : ${newPotluck.attendees}">
+
+                <p th:text="${attendee.firstname}+' '+${attendee.lastname}+' ('+${attendee.username}+')'"></p>
+
+            </li>
+        </ol>
+    </div>
+    <br/>
+    <form th:if="${curruser==true}" th:action="'/delete/'+${newPotluck.id}" method="POST">
+        <button type="submit" class="delete"> Delete This Potluck </button>
+    </form>
+
+
+    <div th:replace="fragments/footer :: foot"></div>
+</section>
 </body>
 </html>
