@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Boogaloo|Mali|Neucha|News+Cycle&display=swap');
 
 
-
-/*margins*/
-/*body {
-    margin: 10% 9%;
-}*/
-
+  #map {
+        height: 50%;
+        width:50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 header {
     background-color: #a4e55e;
 }
