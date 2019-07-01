@@ -149,3 +149,6 @@ in your browser type:
 
 ## License
 > This project is licensed under the MIT License - see the [License](https://choosealicense.com/licenses/mit/) file for details.
+
+## Luke's Comments after Partnered Code Review (Midterm)
++ 

@@ -11,6 +11,9 @@ import java.util.Set;
  * Potluck object.
  * Event.
  */
+
+// Could the eventname etc. be made private since there are getters and setters
+
 @Entity
 public class Potluck {
     @Id
@@ -30,7 +33,7 @@ public class Potluck {
     double[] mapResult;
     @ManyToMany
     Set<PotluckUser> attendees;
-
+    //what are the options for FetchType other than EAGER
     @OneToMany(fetch=FetchType.EAGER, mappedBy="potluck")
      List<PotluckItem> potluckItemList;
 
